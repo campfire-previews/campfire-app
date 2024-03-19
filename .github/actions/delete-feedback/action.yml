@@ -1,0 +1,69 @@
+name: Delete preview app
+description: Deletes ECR images, task definitions, and the ECS service.
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        IMAGE_TAG=$GITHUB_SHA
+
+        aws ecr batch-delete-image \
+        --repository-name $ECR_REPOSITORY \
+        --image-ids imageTag=$IMAGE_TAG \
+        --query 'imageIds[*].imageTag'
+      shell: bash
+
+    - run: |
+        TASK_FAMILY="feedback-interface-task"
+
+        APP_TASK_ARN=$(aws ecs list-task-definitions \
+        --family-prefix $TASK_FAMILY \
+        --query 'taskDefinitionArns[0]' \
+        --output text)
+
+        aws ecs deregister-task-definition \
+        --task-definition $APP_TASK_ARN \
+        --query 'taskDefinition.taskDefinitionArn'
+      shell: bash
+
+    - run: |
+        echo "Deleting load balancer rules and target group"
+
+        ALB_ARN=$(aws elbv2 describe-load-balancers \
+        --query 'LoadBalancers[?LoadBalancerName==`team5-load-balancer`] | [0].LoadBalancerArn' \
+        --output text)
+
+        LISTENER_ARN=$(aws elbv2 describe-listeners \
+        --load-balancer-arn $ALB_ARN \
+        --query 'Listeners[?Port==`443`] | [0].ListenerArn' \
+        --output text)
+
+        RULE_ARN=$(aws elbv2 describe-rules \
+        --listener-arn $LISTENER_ARN \
+        --query "Rules[?Conditions[?Values[?contains(@, 'feedback-interface.icyntkt.xyz')]]].RuleArn | [0]" \
+        --output text)
+
+        aws elbv2 delete-rule \
+        --rule-arn $RULE_ARN
+
+        TARGET_GROUP_ARN=$(aws elbv2 describe-target-groups \
+        --names feedback-interface-target-group \
+        --query 'TargetGroups[0].TargetGroupArn' \
+        --output text)
+
+        aws elbv2 delete-target-group \
+        --target-group-arn $TARGET_GROUP_ARN
+      shell: bash
+
+    - run: |
+        ECS_SERVICE_NAME=$(aws ecs list-services \
+        --cluster $ECS_CLUSTER \
+        --query 'serviceArns[*]' \
+        | grep -o "feedback-interface-service[^\"]*")
+
+        aws ecs delete-service \
+        --cluster $ECS_CLUSTER \
+        --service $ECS_SERVICE_NAME \
+        --force \
+        --query 'service.serviceName'
+      shell: bash
