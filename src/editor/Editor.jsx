@@ -6,11 +6,12 @@ import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
 import {OnChangePlugin} from '@lexical/react/LexicalOnChangePlugin'
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import {$getRoot, $getSelection} from 'lexical';
-import {useEffect, useRef} from 'react';
+import {useEffect, useState, useRef} from 'react';
 import React from 'react';
 import './styles.css';
 import ToolbarPlugin from './ToolbarPlugin';
 import { Button } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 
 const theme = {
   code: 'editor-code',
@@ -56,10 +57,21 @@ const theme = {
 //   console.error(error);
 // }
 
-function Editor({ onSubmit}) {
-  // const editorStateRef = useRef();
+function Editor( {onCreateComment}) {
+  const [editorState, setEditorState] = useState();
+
+  function handleChange(newEditorState) {
+    const json = newEditorState.toJSON();
+    setEditorState(JSON.stringify(json));
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await onCreateComment(editorState);
+    // setNewComment("");
+  };
+
   const initialConfig = {
-    // editorState: '',
     namespace: 'Campfire Conversation',
     theme,
     onError(error) { throw error },
@@ -78,12 +90,15 @@ function Editor({ onSubmit}) {
           <HistoryPlugin />
           <AutoFocusPlugin />
 
-          <OnChangePlugin onChange={editorState => editorStateRef.current = editorState}/>
-          <Button label="Submit" onPress={() => {
-            if (editorStateRef.current) {
-              onSubmit(JSON.stringify(editorStateRef.current))
-            }
-          }} />
+          <OnChangePlugin onChange={handleChange}/>
+          <Button label="Submit" onPress={handleSubmit} />
+          <Button
+            variant="contained"
+            endIcon={<SendIcon />}
+            onClick={handleSubmit}
+          >
+            Send
+          </Button>
         </div>
       </div>
     </LexicalComposer>
