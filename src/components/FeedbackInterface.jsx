@@ -1,8 +1,5 @@
-import { useState, useReducer } from "react";
+import { useReducer } from "react";
 import Toolbox from "./Toolbox.jsx";
-import ben from "../../ben/ben.js";
-
-
 import ConversationModal from "./ConversationModal.jsx";
 import RecordingModal from "./RecordingModal.jsx";
 import ScreenshotModal from "./ScreenshotModal.jsx"; 
@@ -14,7 +11,6 @@ const initialState = {
 }
 
 function reducer(state, action) {
-	console.log("action", action);
   switch(action.type) {
     case "display-conversation-modal":
       return {
@@ -45,24 +41,12 @@ function reducer(state, action) {
   }
 }
 
-function FeedbackInterface({ repo, issue_number, comments, setComments }) {
+function FeedbackInterface({ repo, issue_number, comments, onCreateComment }) {
 	const [ state, dispatchModals ] = useReducer(reducer, {...initialState});
 
-  // const [convoState, convoDispatch] = useReducer(reducer, {...initialState});
-  // const [screenshotState, screenshotDispatch] = useReducer(reducer, {...initialState});
-  // const [recordingState, recordingDispatch] = useReducer(reducer, {...initialState});
-	const onHideModal = () => {
+	const handleHideModal = () => {
 		dispatchModals({ type: "hide-all-modals" });
 	}
-	
-  const [newComment, setNewComment] = useState("");
-
-  const onCreateComment = async (e) => {
-    e.preventDefault();
-    await ben.postComment(repo, issue_number, newComment);
-    setNewComment("");
-    ben.getComments(repo, issue_number).then(setComments);
-  };
 
   return (
 		<>
@@ -70,7 +54,9 @@ function FeedbackInterface({ repo, issue_number, comments, setComments }) {
 
 			{ state.isConversationModalVisible ? 
 				<ConversationModal 
-					onHideModal={onHideModal}
+					onHideModal={handleHideModal}
+					onCreateComment={onCreateComment}
+					comments={comments}
 			/> : null }
 
 			{ state.isScreenshotModalVisible ? 
