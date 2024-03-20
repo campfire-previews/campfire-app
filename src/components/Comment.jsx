@@ -1,9 +1,11 @@
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+
 function Comment({ user, comment }) {
   return (
     <>
-      <p>
-        {comment} - {user}
-      </p>
+      <h2>{user}</h2>
+      <Markdown remarkPlugins={[remarkGfm]}>{comment}</Markdown>
       <hr />
     </>
   );
