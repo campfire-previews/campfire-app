@@ -3,6 +3,7 @@ import remarkGfm from "remark-gfm";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import formatToRelativeDate from "../utils/formatToRelativeDate";
+import Chip from '@mui/material/Chip';
 
 function CommentHeader({ user, createdAt }) {
   return (
@@ -13,22 +14,34 @@ function CommentHeader({ user, createdAt }) {
       alignItems="center"
     >
       <Avatar alt={user.login} src={user.avatar_url} />
-      <h2>
-        {user.login} commented {formatToRelativeDate(createdAt)}
-      </h2>
+      <p>
+        <b>{user.login}</b> commented {formatToRelativeDate(createdAt)}
+      </p>
     </Stack>
   );
 }
 
-function CommentReactions() {}
-function CommentBody() {}
+function CommentReactions({ reactions }) {
+  return (
+    <Stack>
+      <Chip/>
+    </Stack>
+  )
+}
+function CommentBody({ body }) {
+  return (
+    <div className="comment-body">
+      <Markdown remarkPlugins={[remarkGfm]}>{body}</Markdown>
+    </div>
+  );
+}
 function Comment({ comment }) {
   return (
-    <>
+    <div className="comment">
       <CommentHeader user={comment.user} createdAt={comment.created_at} />
-      <Markdown remarkPlugins={[remarkGfm]}>{comment.body}</Markdown>
-      <hr />
-    </>
+      <CommentBody body={comment.body} />
+      <CommentReactions reactions={comment.reactions} />
+    </div>
   );
 }
 

@@ -9,6 +9,23 @@ html {
   padding: none;
 }
 
+.comment {
+  border: 1px solid gray;
+}
+
+.comment-header,
+.comment-body,
+.comment-reactions {
+  padding: 10px;
+}
+.comment-header {
+  background-color: rgb(228, 228, 228);
+}
+
+.comment-body {
+  overflow-wrap: break-word;
+}
+
 #conversation-container {
   box-sizing: border-box;
   display: flex;
@@ -31,11 +48,6 @@ html {
   flex-grow: 3;
   overflow-y: scroll;
   padding: 15px;
-}
-
-.comment-header {
-  border: 1px solid black;
-  padding: 10px;
 }
 
 .modalContainer {
