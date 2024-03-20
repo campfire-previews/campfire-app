@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Editor from "../../../new-branch/campfire-app/src/editor/Editor";
+import Editor from "../editor/Editor";
 import Comments from "./Comments";
 
 function Conversation({ comments, onCreateComment }) {
