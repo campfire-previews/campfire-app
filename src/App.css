@@ -22,3 +22,26 @@ html {
   width: 300px;
   padding: 10px;
 }
+
+.modalContainer {
+	position: absolute;
+	background-color: rgb(255, 226, 179);
+	width: 60vw;
+	height: 60vh;
+	z-index: 3;
+
+	top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.modalOverlay {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	left: 0;
+	top: 0;
+	background-color: rgba(255, 255, 255, 0);
+	z-index: 0;
+}
