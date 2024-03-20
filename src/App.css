@@ -9,18 +9,27 @@ html {
   padding: none;
 }
 
-#comments-container {
-  background-color: white;
-  border: 0.1rem solid black;
+#conversation-container {
+  background-color: rgb(255, 246, 224);
+  border: 0.2rem solid rgb(48, 66, 101);
   border-radius: 10px;
   font-family: sans-serif;
   margin-top: 20px;
   margin-left: 20px;
   position: absolute;
   z-index: 2;
-  /* height: 80vh; */
-  width: 300px;
-  padding: 10px;
+  height: 50vh;
+  width: 70vh;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.commentList {
+  overflow-y: auto;
+}
+
+.editorWrapper {
+  position: relative;
 }
 
 .modalContainer {

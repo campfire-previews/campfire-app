@@ -7,15 +7,18 @@ import FeedbackInterface from "./FeedbackInterface";
 function PreviewEnvironment() {
   const { repo, issue_number } = useParams();
   const [comments, setComments] = useState([]);
-  const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
     (async () => {
       let comments = await ben.getComments(repo, issue_number);
       setComments(comments);
-      setShowComments(true);
     })();
   }, [repo, issue_number]);
+
+  const handleCreateComment = async (newComment) => {
+    const data = await ben.postComment(repo, issue_number, newComment);
+    setComments(prevState => prevState.concat(data));
+  };
 
   return (
     <>
@@ -24,7 +27,8 @@ function PreviewEnvironment() {
         repo={repo}
         issue_number={issue_number}
         comments={comments}
-        setComments={setComments}
+        onCreateComment={handleCreateComment}
+        
       />
     </>
   );
