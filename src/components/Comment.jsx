@@ -2,6 +2,7 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
+import formatToRelativeDate from "../utils/formatToRelativeDate";
 
 function CommentHeader({ user, createdAt }) {
   return (
@@ -13,7 +14,7 @@ function CommentHeader({ user, createdAt }) {
     >
       <Avatar alt={user.login} src={user.avatar_url} />
       <h2>
-        {user.login} commented {createdAt}
+        {user.login} commented {formatToRelativeDate(createdAt)}
       </h2>
     </Stack>
   );
