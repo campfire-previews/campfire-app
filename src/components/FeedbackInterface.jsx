@@ -61,12 +61,12 @@ function FeedbackInterface({ repo, issue_number, comments, onCreateComment }) {
 
 			{ state.isScreenshotModalVisible ? 
 				<ScreenshotModal
-					onHideModal={onHideModal}
+					onHideModal={handleHideModal}
 			/> : null }
 			
 			{ state.isRecordingModalVisible ? 
 				<RecordingModal 
-					onHideModal={onHideModal}
+					onHideModal={handleHideModal}
 			/> : null }
 		</>
   );
