@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ben from "../ben/ben";
+import NameModal from './components/NameModal';
 import "./App.css";
 
 import { createTheme } from '@mui/material/styles';
@@ -19,13 +20,30 @@ import {
 } from "react-router-dom";
 
 function App() {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    const storedName = localStorage.getItem('userName');
+    if (!storedName) {
+      setModalVisible(true);
+    }
+  }, []);
+
+  const handleNameSubmit = (name) => {
+    localStorage.setItem('userName', name);
+    setModalVisible(false);
+  };
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Dashboard />}></Route>
-        <Route path="/:repo/:issue_number" element={<PreviewEnvironment />} />
-      </Routes>
-    </Router>
+    <div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Dashboard />}></Route>
+          <Route path="/:repo/:issue_number" element={<PreviewEnvironment />} />
+        </Routes>
+      </Router>
+      <NameModal isVisible={isModalVisible} onSubmit={handleNameSubmit} />
+    </div>
   );
 }
 
