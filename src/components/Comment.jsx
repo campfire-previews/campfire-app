@@ -1,14 +1,34 @@
-import Markdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
 
-function Comment({ user, comment }) {
+function CommentHeader({ user, createdAt }) {
+  return (
+    <Stack
+      className="comment-header"
+      direction="row"
+      spacing={2}
+      alignItems="center"
+    >
+      <Avatar alt={user.login} src={user.avatar_url} />
+      <h2>
+        {user.login} commented {createdAt}
+      </h2>
+    </Stack>
+  );
+}
+
+function CommentReactions() {}
+function CommentBody() {}
+function Comment({ comment }) {
   return (
     <>
-      <h2>{user}</h2>
-      <Markdown remarkPlugins={[remarkGfm]}>{comment}</Markdown>
+      <CommentHeader user={comment.user} createdAt={comment.created_at} />
+      <Markdown remarkPlugins={[remarkGfm]}>{comment.body}</Markdown>
       <hr />
     </>
   );
 }
 
-export default Comment
+export default Comment;

@@ -9,7 +9,7 @@ function Conversation({ comments, onCreateComment }) {
     <div id="conversation-container">
       <h1>campfire conversation</h1>
       <Comments comments={comments} />
-      <div className="editorWrapper">
+      <div id="editor-wrapper">
         <Editor onCreateComment={onCreateComment} />
       </div>
       {/* <form onSubmit={handleSubmit}>
