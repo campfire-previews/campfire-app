@@ -69,36 +69,9 @@ function FeedbackInterface({ repo, issue_number, comments, setComments }) {
     ben.getComments(repo, issue_number).then(setComments);
   };
 
-	const tools = [
-	  { 
-			icon: <VideocamIcon />,
-      name: 'New session replay',
-      onClick() { dispatchModals({ type: "display-recording-modal" }) } 
-    },
-	  {
-      icon: <CameraAltIcon />,
-      name: 'New screenshot',
-      onClick() { dispatchModals({ type: "display-screenshot-modal" }) } 
-    },
-		{
-      icon: <ForumIcon />,
-      name: 'View conversation',
-      onClick() { dispatchModals({ type: "display-conversation-modal" }) } 
-    },
-	  {
-      icon: <ShareIcon />,
-      name: 'Share link'
-    },
-	  {
-      icon: <ThumbUpIcon />,
-      name: 'Looks good to me!'
-    },
-	];
-
-	console.log(state);
   return (
 		<>
-			<Toolbox tools={tools}/>
+			<Toolbox dispatchModals={dispatchModals}/>
 
 			{ state.isConversationModalVisible ? 
 				<ConversationModal 
