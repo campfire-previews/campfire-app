@@ -1,14 +1,12 @@
-function ConversationModal({ onHideModal }) {
-	const onModalOverlayClick = (e) => {
-		onHideModal();
-	}
+import Conversation from "./Conversation";
 
+function ConversationModal({ onHideModal, comments, onCreateComment }) {
 	return (
 		<>
 			<div className="modalContainer">
-				<p>Conversation Modal</p>
+				<Conversation comments={comments} onCreateComment={onCreateComment}/>
 			</div>
-			<div className="modalOverlay" onClick={onModalOverlayClick}></div>
+			<div className="modalOverlay" onClick={() => onHideModal()}></div>
 		</>
 	)
 }

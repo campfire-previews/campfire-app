@@ -50,24 +50,12 @@ function reducer(state, action) {
   }
 }
 
-function FeedbackInterface({ repo, issue_number, comments, setComments }) {
+function FeedbackInterface({ repo, issue_number, comments, onCreateComment }) {
 	const [ state, dispatchModals ] = useReducer(reducer, {...initialState});
 
-  // const [convoState, convoDispatch] = useReducer(reducer, {...initialState});
-  // const [screenshotState, screenshotDispatch] = useReducer(reducer, {...initialState});
-  // const [recordingState, recordingDispatch] = useReducer(reducer, {...initialState});
-	const onHideModal = () => {
+	const handleHideModal = () => {
 		dispatchModals({ type: "hide-all-modals" });
 	}
-	
-  const [newComment, setNewComment] = useState("");
-
-  const onCreateComment = async (e) => {
-    e.preventDefault();
-    await ben.postComment(repo, issue_number, newComment);
-    setNewComment("");
-    ben.getComments(repo, issue_number).then(setComments);
-  };
 
 	const tools = [
 	  { 
@@ -95,24 +83,25 @@ function FeedbackInterface({ repo, issue_number, comments, setComments }) {
     },
 	];
 
-	console.log(state);
   return (
 		<>
 			<Toolbox tools={tools}/>
 
 			{ state.isConversationModalVisible ? 
 				<ConversationModal 
-					onHideModal={onHideModal}
+					onHideModal={handleHideModal}
+					onCreateComment={onCreateComment}
+					comments={comments}
 			/> : null }
 
 			{ state.isScreenshotModalVisible ? 
 				<ScreenshotModal
-					onHideModal={onHideModal}
+					onHideModal={handleHideModal}
 			/> : null }
 			
 			{ state.isRecordingModalVisible ? 
 				<RecordingModal 
-					onHideModal={onHideModal}
+					onHideModal={handleHideModal}
 			/> : null }
 		</>
   );

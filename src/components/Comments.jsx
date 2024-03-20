@@ -1,12 +1,12 @@
-import Comment from "./Comment.jsx";
+import Comment from "./Comment";
 
 function Comments({ comments }) {
 	return (
-		<>
-			{comments.map(({ body, user, id }) => (
-        <Comment user={user.login} comment={body} key={id} />
-	    ))}
-		</>
+		<div className="commentList">
+			{comments.map(({ id, user, body }) => (
+        <Comment key={id} user={user.login} comment={body} />
+      ))}
+		</div>
 	)
 }
 
