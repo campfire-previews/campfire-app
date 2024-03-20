@@ -9,7 +9,7 @@ html {
   padding: none;
 }
 
-#comments-container {
+#conversation-container {
   background-color: white;
   border: 0.1rem solid black;
   border-radius: 10px;
@@ -18,9 +18,10 @@ html {
   margin-left: 20px;
   position: absolute;
   z-index: 2;
-  /* height: 80vh; */
-  width: 300px;
+  height: 60vh;
+  width: 500px;
   padding: 10px;
+  overflow-y: scroll;
 }
 
 .modalContainer {
