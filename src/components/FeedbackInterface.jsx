@@ -46,9 +46,19 @@ function FeedbackInterface({ repo, issue_number, comments, onCreateComment }) {
 	const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
 
 	useEffect(() => {
-		const userName = localStorage.getItem('userName');
-		setIsUserAuthenticated(!!userName);
-	}, []);
+    const handleUsernameSet = () => {
+        const userName = localStorage.getItem('userName');
+        setIsUserAuthenticated(!!userName);
+    };
+
+    window.addEventListener('username-set', handleUsernameSet);
+
+    handleUsernameSet();
+
+    return () => {
+        window.removeEventListener('username-set', handleUsernameSet);
+    };
+}, []);
 
 	const handleHideModal = () => {
 		dispatchModals({ type: "hide-all-modals" });

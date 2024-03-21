@@ -11,6 +11,7 @@ const NameModal = ({ isVisible, onSubmit, defaultName }) => {
     event.preventDefault();
     console.log('username: ', name);
     onSubmit(name);
+    window.dispatchEvent(new CustomEvent('username-set'));
   };
 
   if (!isVisible) return null;
