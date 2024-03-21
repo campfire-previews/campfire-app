@@ -22,17 +22,6 @@ function CommentHeader({ user, createdAt }) {
   );
 }
 
-function CommentReactions({ reactions }) {
-  function handleClick() {
-    console.log("reaction clicked!");
-  }
-  return (
-    <Stack className="comment-reactions" direction="row" spacing={2}>
-      <Chip label={"😎"} onClick={handleClick} />
-      <Chip label={"👍"} onClick={handleClick} />
-    </Stack>
-  );
-}
 function CommentBody({ body }) {
   return (
     <div className="comment-body">
@@ -45,7 +34,6 @@ function Comment({ comment }) {
     <div className="comment">
       <CommentHeader user={comment.user} createdAt={comment.created_at} />
       <CommentBody body={comment.body} />
-      <CommentReactions reactions={comment.reactions} />
     </div>
   );
 }
