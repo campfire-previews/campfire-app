@@ -7,7 +7,6 @@ function Conversation({ comments, onCreateComment }) {
 
   return (
     <div id="conversation-container">
-      <h1>campfire conversation</h1>
       <Comments comments={comments} />
       <div id="editor-wrapper">
         <Editor onCreateComment={onCreateComment} />

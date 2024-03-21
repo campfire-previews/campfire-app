@@ -39,7 +39,7 @@ html {
   z-index: 2;
   height: 70vh;
   min-width: 300px;
-  max-width: 60vw;
+  max-width: 70vw;
   /* padding: 10px; */
   /* overflow-y: scroll; */
 }
@@ -47,13 +47,13 @@ html {
 #comments-container {
   flex-grow: 3;
   overflow-y: scroll;
-  padding: 15px;
+  padding: 30px;
 }
 
 .modalContainer {
   position: absolute;
   background-color: rgb(255, 226, 179);
-  width: 60vw;
+  width: 70vw;
   height: 60vh;
   z-index: 3;
   top: 50%;
@@ -63,6 +63,7 @@ html {
 
 #editor-wrapper {
   flex: 1;
+  /* height: 20px; */
 }
 
 .modalOverlay {

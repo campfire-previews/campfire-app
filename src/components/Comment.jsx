@@ -3,7 +3,8 @@ import remarkGfm from "remark-gfm";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import formatToRelativeDate from "../utils/formatToRelativeDate";
-import Chip from '@mui/material/Chip';
+import Chip from "@mui/material/Chip";
+import TagFacesIcon from "@mui/icons-material/TagFaces";
 
 function CommentHeader({ user, createdAt }) {
   return (
@@ -22,11 +23,15 @@ function CommentHeader({ user, createdAt }) {
 }
 
 function CommentReactions({ reactions }) {
+  function handleClick() {
+    console.log("reaction clicked!");
+  }
   return (
-    <Stack>
-      <Chip/>
+    <Stack className="comment-reactions" direction="row" spacing={2}>
+      <Chip label={"😎"} onClick={handleClick} />
+      <Chip label={"👍"} onClick={handleClick} />
     </Stack>
-  )
+  );
 }
 function CommentBody({ body }) {
   return (
