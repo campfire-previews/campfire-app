@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-const NameModal = ({ isVisible, onSubmit }) => {
-  const [name, setName] = useState('');
+const NameModal = ({ isVisible, onSubmit, defaultName }) => {
+  const [name, setName] = useState(defaultName || '');
+
+  useEffect(() => {
+    setName(defaultName);
+  }, [defaultName]);
 
   const handleSubmit = () => {
     event.preventDefault();

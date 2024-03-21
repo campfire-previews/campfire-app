@@ -29,7 +29,7 @@ function App() {
 
     if (storedName) {
       setUserName(storedName);
-      setModalVisible(false);
+      // setModalVisible(false);
     } else {
       setModalVisible(true);
     }
@@ -41,6 +41,10 @@ function App() {
     setModalVisible(false);
   };
 
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   return (
     <div>
       <Router>
@@ -49,8 +53,8 @@ function App() {
           <Route path="/:repo/:issue_number" element={<PreviewEnvironment />} />
         </Routes>
       </Router>
-      <DisplayNameBanner userName={userName} />
-      <NameModal isVisible={isModalVisible} onSubmit={handleNameSubmit} />
+      <DisplayNameBanner userName={userName} onClick={toggleModal} />
+      {isModalVisible && <NameModal isVisible={isModalVisible} onSubmit={handleNameSubmit} defaultName={userName} />}
     </div>
   );
 }
