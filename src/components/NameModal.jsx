@@ -3,14 +3,16 @@ import React, { useState, useEffect } from 'react';
 const NameModal = ({ isVisible, onSubmit, defaultName }) => {
   const [name, setName] = useState(defaultName || '');
   const [isEditing, setIsEditing] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     setName(defaultName);
     setIsEditing(!!localStorage.getItem('userName'));
-  }, [defaultName]);
+    setError(''); // Reset error message when modal is opened or defaultName changes
+  }, [defaultName, isVisible]);
 
   const handleOutsideClick = (event) => {
-    if (!event.target.closest('#name-modal-content') && isEditing) {
+    if (!event.target.closest('#name-modal-content') && isEditing && name) {
       onSubmit(name);
     }
   };
@@ -24,11 +26,15 @@ const NameModal = ({ isVisible, onSubmit, defaultName }) => {
     return () => {
       document.removeEventListener('click', handleOutsideClick);
     };
-  }, [isVisible, isEditing]);
+  }, [isVisible, isEditing, name]);
 
   const handleSubmit = () => {
     event.preventDefault();
-    console.log('username: ', name);
+    if (!name.trim()) {
+      setError('Name is required');
+      return;
+    }
+   // console.log('username: ', name);
     onSubmit(name);
     window.dispatchEvent(new CustomEvent('username-set'));
   };
@@ -41,7 +47,11 @@ const NameModal = ({ isVisible, onSubmit, defaultName }) => {
         <form onSubmit={handleSubmit}>
           <h1>welcome to campfire!</h1>
           <h2>what is your name? (for comments)</h2>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+          <input type="text" value={name} onChange={(e) => {
+            setName(e.target.value);
+            setError('');  // clear error when user starts typing
+          }} />
+          {error && <div style={{ color: 'red' }}>{error}</div>}
           <button type="submit">{isEditing ? 'save changes' : 'join the campfire'}</button>
         </form>
       </div>
