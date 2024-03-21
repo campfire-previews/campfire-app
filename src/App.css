@@ -102,3 +102,12 @@ html {
   background-color: #0056b3;
 }
 
+.display-name-banner {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 0 0 0 10px;
+}
