@@ -1,5 +1,6 @@
 import { useState } from "react";
-import Editor from "../editor/Editor";
+import Editor from "../editor/refactored_editor";
+
 import Comments from "./Comments";
 
 function Conversation({ comments, onCreateComment }) {
@@ -10,8 +11,8 @@ function Conversation({ comments, onCreateComment }) {
       <h1>campfire conversation</h1>
       <Comments comments={comments}/>
       <div className="editorWrapper">
-          <Editor onCreateComment={onCreateComment}/>
-        </div>
+        <Editor onCreateComment={onCreateComment}/>
+      </div>
       {/* <form onSubmit={handleSubmit}>
         <label htmlFor="newComment">New Comment:</label>
         <input
