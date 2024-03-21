@@ -8,21 +8,6 @@ const NameModal = ({ isVisible, onSubmit }) => {
     onSubmit(name);
   };
 
-  const handleOutsideClick = (event) => {
-    if (!event.target.closest('#name-modal-content')) {
-      onSubmit(name);
-    }
-  };
-
-  useEffect(() => {
-    if (isVisible) {
-      document.addEventListener('click', handleOutsideClick);
-    }
-    return () => {
-      document.removeEventListener('click', handleOutsideClick);
-    };
-  }, [isVisible]);
-
   if (!isVisible) return null;
 
   return (
