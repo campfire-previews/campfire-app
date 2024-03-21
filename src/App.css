@@ -36,7 +36,6 @@ html {
   transform: translate(-50%, -50%);
 }
 
-
 .modalOverlay {
 	position: absolute;
 	width: 100vw;
@@ -71,7 +70,13 @@ html {
   align-items: center;
 }
 
+#name-modal-content h1 {
+  font-size: 28px;
+  color: #333;
+}
+
 #name-modal-content h2 {
+  font-size: 18px;
   margin-top: 0;
   color: #333;
 }
