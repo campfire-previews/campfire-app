@@ -42,7 +42,7 @@ const NameModal = ({ isVisible, onSubmit, defaultName }) => {
           <h1>welcome to campfire!</h1>
           <h2>what is your name? (for comments)</h2>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-          <button onClick={handleSubmit}>join the campfire</button>
+          <button type="submit">{isEditing ? 'save changes' : 'join the campfire'}</button>
         </form>
       </div>
     </div>
