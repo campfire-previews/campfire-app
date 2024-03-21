@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const NameModal = ({ isVisible, onSubmit, defaultName }) => {
+const NameModal = ({ isVisible, onSubmit, defaultName, onClose = () => {} }) => {
   const [name, setName] = useState(defaultName || '');
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState('');
@@ -8,12 +8,12 @@ const NameModal = ({ isVisible, onSubmit, defaultName }) => {
   useEffect(() => {
     setName(defaultName);
     setIsEditing(!!localStorage.getItem('userName'));
-    setError(''); // Reset error message when modal is opened or defaultName changes
+    setError(''); 
   }, [defaultName, isVisible]);
 
   const handleOutsideClick = (event) => {
     if (!event.target.closest('#name-modal-content') && isEditing && name) {
-      onSubmit(name);
+      onClose();
     }
   };
 
@@ -34,7 +34,6 @@ const NameModal = ({ isVisible, onSubmit, defaultName }) => {
       setError('Name is required');
       return;
     }
-   // console.log('username: ', name);
     onSubmit(name);
     window.dispatchEvent(new CustomEvent('username-set'));
   };
