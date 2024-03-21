@@ -13,9 +13,10 @@ const NameModal = ({ isVisible, onSubmit }) => {
   return (
     <div className="name-modal-overlay">
       <div id="name-modal-content" className="name-modal-content">
-        <h2>Hello there! Please enter your name:</h2>
+        <h1>welcome to campfire!</h1>
+        <h2>what is your name? (for comments)</h2>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-        <button onClick={handleSubmit}>Submit</button>
+        <button onClick={handleSubmit}>join the campfire</button>
       </div>
     </div>
   );
