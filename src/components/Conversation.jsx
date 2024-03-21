@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Editor from "../editor/refactored_editor";
+import Editor from "../editor/Editor";
 
 import Comments from "./Comments";
 
