@@ -1,7 +1,6 @@
 import React from 'react';
 
 const DisplayNameBanner = ({ userName }) => {
-  console.log('DisplayNameBanner userName: ', userName);
   if (!userName) return null;
 
   return (

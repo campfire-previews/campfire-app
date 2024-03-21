@@ -26,7 +26,6 @@ function App() {
 
   useEffect(() => {
     const storedName = localStorage.getItem('userName');
-    console.log('Stored name:', storedName);
 
     if (storedName) {
       setUserName(storedName);
@@ -35,8 +34,6 @@ function App() {
       setModalVisible(true);
     }
   }, []);
-
-  console.log('Modal Visible:', isModalVisible, 'UserName:', userName);
 
   const handleNameSubmit = (name) => {
     localStorage.setItem('userName', name);
