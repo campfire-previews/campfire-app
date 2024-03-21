@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ben from "../ben/ben";
 import NameModal from './components/NameModal';
+import DisplayNameBanner from './components/DisplayNameBanner';
 import "./App.css";
 
 import { createTheme } from '@mui/material/styles';
@@ -21,16 +22,25 @@ import {
 
 function App() {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [userName, setUserName] = useState(''); 
 
   useEffect(() => {
     const storedName = localStorage.getItem('userName');
-    if (!storedName) {
+    console.log('Stored name:', storedName);
+
+    if (storedName) {
+      setUserName(storedName);
+      setModalVisible(false);
+    } else {
       setModalVisible(true);
     }
   }, []);
 
+  console.log('Modal Visible:', isModalVisible, 'UserName:', userName);
+
   const handleNameSubmit = (name) => {
     localStorage.setItem('userName', name);
+    setUserName(name);
     setModalVisible(false);
   };
 
@@ -42,6 +52,7 @@ function App() {
           <Route path="/:repo/:issue_number" element={<PreviewEnvironment />} />
         </Routes>
       </Router>
+      <DisplayNameBanner userName={userName} />
       <NameModal isVisible={isModalVisible} onSubmit={handleNameSubmit} />
     </div>
   );
