@@ -67,11 +67,77 @@ html {
 }
 
 .modalOverlay {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  left: 0;
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	left: 0;
+	top: 0;
+	background-color: rgba(255, 255, 255, 0);
+	z-index: 0;
+}
+
+.name-modal-overlay {
+  position: fixed;
   top: 0;
-  background-color: rgba(255, 255, 255, 0);
-  z-index: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#name-modal-content {
+  background-color: rgb(255, 226, 179);
+  padding: 30px;
+  width: 50%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#name-modal-content h1 {
+  font-size: 28px;
+  color: #333;
+}
+
+#name-modal-content h2 {
+  font-size: 18px;
+  margin-top: 0;
+  color: #333;
+}
+
+#name-modal-content input {
+  width: 80%;
+  padding: 10px;
+  margin: 20px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#name-modal-content button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+#name-modal-content button:hover {
+  background-color: #0056b3;
+}
+
+.display-name-banner {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 0 0 0 10px;
 }
