@@ -29,7 +29,6 @@ function App() {
 
     if (storedName) {
       setUserName(storedName);
-      // setModalVisible(false);
     } else {
       setModalVisible(true);
     }
