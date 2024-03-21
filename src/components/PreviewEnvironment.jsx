@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import ben from "../../ben/ben.js";
 import Preview from "./Preview";
@@ -11,13 +11,14 @@ function PreviewEnvironment() {
   useEffect(() => {
     (async () => {
       let comments = await ben.getComments(repo, issue_number);
+      console.log(comments);
       setComments(comments);
     })();
   }, [repo, issue_number]);
 
   const handleCreateComment = async (newComment) => {
     const data = await ben.postComment(repo, issue_number, newComment);
-    setComments(prevState => prevState.concat(data));
+    setComments((prevState) => prevState.concat(data));
   };
 
   return (
@@ -28,7 +29,6 @@ function PreviewEnvironment() {
         issue_number={issue_number}
         comments={comments}
         onCreateComment={handleCreateComment}
-        
       />
     </>
   );

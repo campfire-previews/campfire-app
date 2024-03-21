@@ -9,31 +9,61 @@ html {
   padding: none;
 }
 
+.comment {
+  border: 1px solid gray;
+}
+
+.comment-header,
+.comment-body,
+.comment-reactions {
+  padding: 10px;
+}
+.comment-header {
+  background-color: rgb(228, 228, 228);
+}
+
+.comment-body {
+  overflow-wrap: break-word;
+}
+
 #conversation-container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   background-color: white;
-  border: 0.1rem solid black;
-  border-radius: 10px;
+  border: 1px solid rgb(181, 181, 181);
+  border-radius: 5px;
   font-family: sans-serif;
-  margin-top: 20px;
-  margin-left: 20px;
+  margin-top: 10vh;
   position: absolute;
   z-index: 2;
-  height: 60vh;
-  width: 500px;
-  padding: 10px;
+  height: 70vh;
+  min-width: 300px;
+  max-width: 70vw;
+  /* padding: 10px; */
+  /* overflow-y: scroll; */
+}
+
+#comments-container {
+  flex-grow: 3;
   overflow-y: scroll;
+  padding: 30px;
 }
 
 .modalContainer {
-	position: absolute;
-	background-color: rgb(255, 226, 179);
-	width: 60vw;
-	height: 60vh;
-	z-index: 3;
-
-	top: 50%;
+  position: absolute;
+  background-color: rgb(255, 226, 179);
+  width: 70vw;
+  height: 60vh;
+  z-index: 3;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+#editor-wrapper {
+  flex: 1;
+  /* height: 20px; */
 }
 
 .modalOverlay {

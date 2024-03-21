@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ben from "../ben/ben";
 import NameModal from './components/NameModal';
 import DisplayNameBanner from './components/DisplayNameBanner';
 import "./App.css";
-
-import { createTheme } from '@mui/material/styles';
-
-import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import PrintIcon from '@mui/icons-material/Print';
 
 import Dashboard from "./components/Dashboard.jsx";
 import PreviewEnvironment from "./components/PreviewEnvironment.jsx";
