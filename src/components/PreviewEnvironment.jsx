@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import ben from "../../ben/ben.js";
 import Preview from "./Preview";
+import removeBotPrefix from "../utils/removeBotComments.js"
 import FeedbackInterface from "./FeedbackInterface";
 
 function PreviewEnvironment() {
@@ -11,8 +12,8 @@ function PreviewEnvironment() {
   useEffect(() => {
     (async () => {
       let comments = await ben.getComments(repo, issue_number);
-      console.log(comments);
-      setComments(comments);
+      const filteredComments = removeBotPrefix(comments);
+      setComments(filteredComments);
     })();
   }, [repo, issue_number]);
 
