@@ -1,12 +1,13 @@
 name: Update Feedback Interface
 
 on:
-  commit:
+  push:
     branches:
       - main
 
 env:
   COMMIT_ID: ${{ github.event.pull_request.head.sha }}
+  PR_NUMBER: ${{ github.event.number }}
   AWS_REGION: us-east-2 # REGION
   ECR_REPOSITORY: feedback-interface-repository # IMAGE_REPOSITORY
   ECS_CLUSTER: team5-feedback-interface-cluster # CLUSTER_NAME
