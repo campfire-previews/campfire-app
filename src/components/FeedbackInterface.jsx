@@ -50,7 +50,7 @@ function FeedbackInterface({ repo, issue_number, comments, onCreateComment }) {
 
   return (
 		<>
-			<Toolbox dispatchModals={dispatchModals}/>
+			<Toolbox dispatchModals={dispatchModals} onCreateComment={onCreateComment}/>
 
 			{ state.isConversationModalVisible ? 
 				<ConversationModal 

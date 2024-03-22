@@ -10,7 +10,8 @@ import ForumIcon from "@mui/icons-material/Forum";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import VideocamIcon from "@mui/icons-material/Videocam";
 
-function Toolbox({ dispatchModals }) {
+import LGTM from "../utils/LGTMMessage";
+function Toolbox({ dispatchModals, onCreateComment }) {
   const [tools, setTools] = useState([
     {
       icon: <VideocamIcon />,
@@ -44,6 +45,9 @@ function Toolbox({ dispatchModals }) {
     {
       icon: <ThumbUpIcon />,
       name: "Looks good to me!",
+      onClick() {
+        onCreateComment(LGTM());
+      },
     },
   ]);
 
