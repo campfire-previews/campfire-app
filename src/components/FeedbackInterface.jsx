@@ -41,7 +41,7 @@ function reducer(state, action) {
   }
 }
 
-function FeedbackInterface({ repo, issue_number, comments, onCreateComment }) {
+function FeedbackInterface({ repo, issue_number, comments, onCreateComment, iFrameRef }) {
 	const [ state, dispatchModals ] = useReducer(reducer, {...initialState});
 
 	const handleHideModal = () => {
@@ -67,6 +67,7 @@ function FeedbackInterface({ repo, issue_number, comments, onCreateComment }) {
 			{ state.isRecordingModalVisible ? 
 				<RecordingModal 
 					onHideModal={handleHideModal}
+					iFrameRef={iFrameRef}
 			/> : null }
 		</>
   );
