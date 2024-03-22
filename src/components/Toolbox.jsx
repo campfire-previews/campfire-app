@@ -87,7 +87,9 @@ function Toolbox({ dispatchModals, onCreateComment, repo, issue_number, handleSt
     );
 
     setTools((prevState) => updatedTools);
-    setTimeout(() => setTools((prevState) => originalTools), 2000);
+    setTimeout(() => {
+			setTools((prevState) => originalTools)
+		}, 2000);
   };
 
   // Changes tool icon

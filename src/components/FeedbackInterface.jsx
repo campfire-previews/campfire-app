@@ -5,7 +5,7 @@ import ConversationModal from "./ConversationModal.jsx";
 import RecordingModal from "./RecordingModal.jsx";
 import RecordingInterface from "./RecordingInterface";
 import ScreenshotModal from "./ScreenshotModal.jsx";
-import DisplayNameBanner from "./DisplayNameBanner.jsx";
+import NameBanner from "./NameBanner.jsx";
 import * as rrweb from "rrweb";
 import "rrweb-player/dist/style.css";
 const SUBDOMAIN = import.meta.env.VITE_SUBDOMAIN;
@@ -123,8 +123,11 @@ function FeedbackInterface({
 
   return (
     <>
-      <DisplayNameBanner userName={state.userName} onClick={toggleModal} />
-      {state.isModalVisible ? (
+      { state.userName ?
+				<DisplayNameBanner userName={state.userName} onClick={toggleModal} />
+			}
+      
+			{state.isModalVisible ? (
         <NameModal
           isVisible={state.isModalVisible}
           onSubmit={handleNameSubmit}

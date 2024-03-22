@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DisplayNameBanner = ({ userName, onClick }) => {
+const NameBanner = ({ userName, onClick }) => {
   if (!userName) return null;
 
   return (
@@ -10,4 +10,4 @@ const DisplayNameBanner = ({ userName, onClick }) => {
   );
 };
 
-export default DisplayNameBanner;
+export default NameBanner;
