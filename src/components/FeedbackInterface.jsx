@@ -1,8 +1,9 @@
-import { useReducer } from "react";
+import { useState, useReducer } from "react";
 import Toolbox from "./Toolbox.jsx";
 import ConversationModal from "./ConversationModal.jsx";
 import RecordingModal from "./RecordingModal.jsx";
 import ScreenshotModal from "./ScreenshotModal.jsx"; 
+import RecordingInterface from "./RecordingInterface";
 
 const initialState = {
 	isConversationModalVisible: false,
@@ -43,14 +44,27 @@ function reducer(state, action) {
 
 function FeedbackInterface({ repo, issue_number, comments, onCreateComment, iFrameRef }) {
 	const [ state, dispatchModals ] = useReducer(reducer, {...initialState});
+	const [ isRecording, setIsRecording ] = useState(false);
 
 	const handleHideModal = () => {
 		dispatchModals({ type: "hide-all-modals" });
 	}
 
+	const handleStartRecording = (e) => {
+		dispatchModals({ type: "hide-all-modals" });
+		setIsRecording(true);
+	}
+
+	const handleStopRecording = (e) => {
+		setIsRecording(false);
+	} 
+
   return (
 		<>
-			<Toolbox dispatchModals={dispatchModals}/>
+			<Toolbox 
+				dispatchModals={dispatchModals} 
+				handleStartRecording={handleStartRecording}
+			/>
 
 			{ state.isConversationModalVisible ? 
 				<ConversationModal 
@@ -68,6 +82,11 @@ function FeedbackInterface({ repo, issue_number, comments, onCreateComment, iFra
 				<RecordingModal 
 					onHideModal={handleHideModal}
 					iFrameRef={iFrameRef}
+			/> : null }
+
+			{ isRecording ? 
+				<RecordingInterface 
+					handleStopRecording={handleStopRecording}
 			/> : null }
 		</>
   );

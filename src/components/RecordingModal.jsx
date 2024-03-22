@@ -7,6 +7,7 @@ import 'rrweb-player/dist/style.css';
 function RecordingModal({ onHideModal, iFrameRef }) {
 	const [ events, setEvents ] = useState([]);
 	const [ stopFn, setStopFn ] = useState(null);
+	const [ isRecording, setIsRecording ] = useState(false);
 	const playerRef = useRef(null);
 
 	const onModalOverlayClick = (e) => {
@@ -16,6 +17,7 @@ function RecordingModal({ onHideModal, iFrameRef }) {
 	const handleStartRecording = (e) => {
 		e.preventDefault();
 		
+		setIsRecording(true)
 		setStopFn(prevState => (new rrweb.record({
 			emit(event) {
 				setEvents(prevState => prevState.concat(event));
@@ -33,7 +35,7 @@ function RecordingModal({ onHideModal, iFrameRef }) {
 		e.preventDefault();
 
 		stopFn();
-
+		setIsRecording(false);
 		const replayer = new rrwebPlayer({
 			target: playerRef.current,
 			props: { events }
@@ -45,8 +47,8 @@ function RecordingModal({ onHideModal, iFrameRef }) {
 		<>
 			<div className="modalContainer">
 				<p>Session Replay Modal</p>
-				<button id="start-recording" onClick={handleStartRecording}>Start</button>
-				<button id="stop-recording" onClick={handleStopRecording}>Stop</button>
+				<button id="start-recording" onClick={handleStartRecording} disabled={isRecording}>Start</button>
+				<button id="stop-recording" onClick={handleStopRecording} disabled={!isRecording}>Stop</button>
 				
 				<div id="player" ref={playerRef}></div>
 			</div>

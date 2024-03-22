@@ -10,12 +10,12 @@ import ForumIcon from '@mui/icons-material/Forum';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import VideocamIcon from '@mui/icons-material/Videocam';
 
-function Toolbox({ dispatchModals }) {
+function Toolbox({ dispatchModals, handleStartRecording }) {
 	const [ tools, setTools ] = useState([
 	  { 
 			icon: <VideocamIcon />,
       name: 'New session replay',
-      onClick() { dispatchModals({ type: "display-recording-modal" }) } 
+      onClick() { handleStartRecording() } 
     },
 	  {
       icon: <CameraAltIcon />,

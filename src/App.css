@@ -1,10 +1,3 @@
-iframe {
-  width: 100%;
-  height: 100vh;
-  position: fixed;
-  border: none;
-}
-
 html {
   padding: none;
 }
@@ -24,6 +17,14 @@ html {
   overflow-y: scroll;
 }
 
+#client-app {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  border: none;
+	z-index: 1;
+}
+
 .modalContainer {
 	position: absolute;
 	background-color: rgb(255, 226, 179);
@@ -34,8 +35,12 @@ html {
 	top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
 
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
 
 .modalOverlay {
 	position: absolute;
@@ -45,4 +50,46 @@ html {
 	top: 0;
 	background-color: rgba(255, 255, 255, 0);
 	z-index: 0;
+}
+
+#recordingModalHeader {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+#recordingModalButtons {
+	display: flex;
+}
+
+#recordingInterface {
+	color: white;
+	display: flex;
+	flex-direction: column;
+	top: 0;
+	right: 0;
+	position: absolute;
+	z-index: 4;
+}
+
+#recordingInterface > div {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+}
+
+#dot {
+	width: 20px;
+	height: 20px;
+	background-color: rgb(211, 0, 0);
+	border-radius: 50%;
+	margin-left: 10px;
+}
+
+.visible {
+	visibility: visible;
+}
+
+.hidden {
+	visibility: hidden;
 }
