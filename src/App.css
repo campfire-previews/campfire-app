@@ -48,7 +48,6 @@ html {
   height: 100vh;
   position: fixed;
   border: none;
-	z-index: 1;
 }
 
 .modalContainer {
@@ -60,10 +59,10 @@ html {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #editor-wrapper {
@@ -72,55 +71,55 @@ html {
 }
 
 .modalOverlay {
-	position: absolute;
-	width: 100vw;
-	height: 100vh;
-	left: 0;
-	top: 0;
-	background-color: rgba(255, 255, 255, 0);
-	z-index: 1;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0);
+  z-index: 1;
 }
 
 #recordingModalHeader {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 #recordingModalButtons {
-	display: flex;
+  display: flex;
 }
 
 #recordingInterface {
-	color: white;
-	display: flex;
-	flex-direction: column;
-	top: 0;
-	right: 0;
-	position: absolute;
-	z-index: 4;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  right: 0;
+  position: absolute;
+  z-index: 4;
 }
 
 #recordingInterface > div {
-	display: flex;
-	align-items: center;
-	padding: 10px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
 }
 
 #dot {
-	width: 20px;
-	height: 20px;
-	background-color: rgb(211, 0, 0);
-	border-radius: 50%;
-	margin-left: 10px;
+  width: 20px;
+  height: 20px;
+  background-color: rgb(211, 0, 0);
+  border-radius: 50%;
+  margin-left: 10px;
 }
 
 .visible {
-	visibility: visible;
+  visibility: visible;
 }
 
 .hidden {
-	visibility: hidden;
+  visibility: hidden;
 }
 
 .name-modal-overlay {
