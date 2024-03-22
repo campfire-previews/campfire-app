@@ -11,7 +11,10 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import VideocamIcon from "@mui/icons-material/Videocam";
 
 import LGTM from "../utils/LGTMMessage";
+import ConfettiExplosion from "react-confetti-explosion";
+
 function Toolbox({ dispatchModals, onCreateComment }) {
+  const [isExploding, setIsExploding] = useState(false);
   const [tools, setTools] = useState([
     {
       icon: <VideocamIcon />,
@@ -46,10 +49,19 @@ function Toolbox({ dispatchModals, onCreateComment }) {
       icon: <ThumbUpIcon />,
       name: "Looks good to me!",
       onClick() {
-        onCreateComment(LGTM());
+        // onCreateComment(LGTM());
+        setIsExploding((isExploding) => !isExploding);
       },
     },
   ]);
+
+  const largeProps = {
+    force: 0.8,
+    duration: 3000,
+    particleCount: 300,
+    width: 1600,
+    colors: ["#363F54", "#E2554F", "#ED6B2C", "#ED9837", "#EFBE43"],
+  };
 
   // Temporaily changes tool's title to new title, reverts back to original
   const updateToolTitle = (originalTitle, newTitle) => {
@@ -67,29 +79,32 @@ function Toolbox({ dispatchModals, onCreateComment }) {
   };
 
   return (
-    <SpeedDial
-      className="speedDial"
-      ariaLabel="SpeedDial basic example"
-      sx={{ position: "absolute", bottom: 20, left: 20, zIndex: 1 }}
-      icon={<SpeedDialIcon />}
-      FabProps={{
-        style: {
-          backgroundColor: "#E2554F",
-          "&:hover": {
+    <>
+      {isExploding && <ConfettiExplosion {...largeProps} />}
+      <SpeedDial
+        className="speedDial"
+        ariaLabel="SpeedDial basic example"
+        sx={{ position: "absolute", bottom: 20, left: 20, zIndex: 1 }}
+        icon={<SpeedDialIcon />}
+        FabProps={{
+          style: {
             backgroundColor: "#E2554F",
+            "&:hover": {
+              backgroundColor: "#E2554F",
+            },
           },
-        },
-      }}
-    >
-      {tools.map((tool) => (
-        <SpeedDialAction
-          key={tool.name}
-          icon={tool.icon}
-          tooltipTitle={tool.name}
-          onClick={tool.onClick}
-        />
-      ))}
-    </SpeedDial>
+        }}
+      >
+        {tools.map((tool) => (
+          <SpeedDialAction
+            key={tool.name}
+            icon={tool.icon}
+            tooltipTitle={tool.name}
+            onClick={tool.onClick}
+          />
+        ))}
+      </SpeedDial>
+    </>
   );
 }
 
