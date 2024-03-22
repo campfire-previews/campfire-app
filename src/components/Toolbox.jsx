@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
@@ -9,12 +9,22 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ForumIcon from "@mui/icons-material/Forum";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import VideocamIcon from "@mui/icons-material/Videocam";
+import CelebrationIcon from "@mui/icons-material/Celebration";
 
 import LGTM from "../utils/LGTMMessage";
 import ConfettiExplosion from "react-confetti-explosion";
 
-function Toolbox({ dispatchModals, onCreateComment }) {
+function Toolbox({ dispatchModals, onCreateComment, repo, issue_number }) {
   const [isExploding, setIsExploding] = useState(false);
+  const [isLGTMsent, setIsLGTMsent] = useState(false);
+
+  useEffect(() => {
+    setIsLGTMsent(!!localStorage.getItem(`LGTM-${repo}-${issue_number}`));
+    if (!!localStorage.getItem(`LGTM-${repo}-${issue_number}`)) {
+      console.log("EFFECTS LGTMSET", isLGTMsent);
+      updateLGTMtoConfetti();
+    }
+  }, []);
   const [tools, setTools] = useState([
     {
       icon: <VideocamIcon />,
@@ -49,7 +59,12 @@ function Toolbox({ dispatchModals, onCreateComment }) {
       icon: <ThumbUpIcon />,
       name: "Looks good to me!",
       onClick() {
-        // onCreateComment(LGTM());
+        if (!isLGTMsent) {
+          onCreateComment(LGTM());
+          localStorage.setItem(`LGTM-${repo}-${issue_number}`, true);
+          setIsLGTMsent(true);
+          updateLGTMtoConfetti();
+        }
         setIsExploding((isExploding) => !isExploding);
       },
     },
@@ -63,7 +78,7 @@ function Toolbox({ dispatchModals, onCreateComment }) {
     colors: ["#363F54", "#E2554F", "#ED6B2C", "#ED9837", "#EFBE43"],
   };
 
-  // Temporaily changes tool's title to new title, reverts back to original
+  // Temporarily changes tool's title to new title, reverts back to original
   const updateToolTitle = (originalTitle, newTitle) => {
     const originalTools = tools.slice();
     const originalTool = originalTools.find(
@@ -76,6 +91,24 @@ function Toolbox({ dispatchModals, onCreateComment }) {
 
     setTools((prevState) => updatedTools);
     setTimeout(() => setTools((prevState) => originalTools), 2000);
+  };
+
+  // Changes tool icon
+  const updateLGTMtoConfetti = () => {
+    const originalTools = tools.slice();
+    const originalTool = originalTools.find(
+      (tool) => tool.name === "Looks good to me!"
+    );
+    const updatedTool = {
+      ...originalTool,
+      icon: <CelebrationIcon />,
+      name: "Confetti!",
+    };
+    const updatedTools = originalTools.map((tool) =>
+      tool.name === "Looks good to me!" ? updatedTool : tool
+    );
+
+    setTools((prevState) => updatedTools);
   };
 
   return (
