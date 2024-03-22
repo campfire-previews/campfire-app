@@ -44,8 +44,8 @@ const NameModal = ({ isVisible, onSubmit, defaultName, onClose = () => {} }) => 
     <div className="name-modal-overlay" onClick={handleOutsideClick}>
       <div id="name-modal-content" className="name-modal-content">
         <form onSubmit={handleSubmit}>
-          <h1>welcome to campfire!</h1>
-          <h2>what is your name? (for comments)</h2>
+          <h1>{isEditing ? 'thanks for using campfire!' : 'welcome to campfire!'}</h1>
+          <h2>{isEditing ? 'please update your name:' : 'what is your name? (for comments)'}</h2>
           <input type="text" value={name} onChange={(e) => {
             setName(e.target.value);
             setError('');  // clear error when user starts typing
