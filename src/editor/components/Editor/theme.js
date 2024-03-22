@@ -65,4 +65,5 @@ const lexicalEditorTheme = {
     variable: "editor-tokenVariable",
   },
 };
+
 export default lexicalEditorTheme;
