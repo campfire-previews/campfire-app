@@ -13,6 +13,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
+    "@lexical/markdown": "^0.14.2",
     "@lexical/react": "^0.14.2",
     "@mui/icons-material": "^5.15.14",
     "@mui/material": "^5.15.14",
@@ -21,14 +22,17 @@
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "lexical": "^0.14.2",
+    "mdi-material-ui": "^7.8.0",
     "octokit": "^3.1.2",
     "react": "^18.2.0",
+    "react-confetti-explosion": "^2.1.2",
     "react-dom": "^18.2.0",
     "react-markdown": "^9.0.1",
     "react-router-dom": "^6.22.2",
     "remark-gfm": "^4.0.0",
     "rrweb": "^2.0.0-alpha.4",
     "rrweb-player": "^1.0.0-alpha.4"
+    "ua-parser-js": "^1.0.37"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",

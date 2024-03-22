@@ -1,13 +1,21 @@
 import Comment from "./Comment";
+import Stack from "@mui/material/Stack";
 
 function Comments({ comments }) {
-	return (
-		<div className="commentList">
-			{comments.map(({ id, user, body }) => (
-        <Comment key={id} user={user.login} comment={body} />
+  return (
+    <Stack id="comments-container" gap={2}>
+      {comments.map((comment) => (
+        <Comment key={comment.id} comment={comment} />
       ))}
-		</div>
-	)
+    </Stack>
+  );
+  // return (
+  // 	<div className="commentList">
+  // 		{comments.map(({ id, user, body }) => (
+  //       <Comment key={id} user={user.login} comment={body} />
+  //     ))}
+  // 	</div>
+  // )
 }
 
-export default Comments
+export default Comments;
