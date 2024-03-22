@@ -17,7 +17,7 @@ const initialState = {
   isConversationModalVisible: false,
   isScreenshotModalVisible: false,
   isRecordingModalVisible: false,
-  isModalVisible: true,
+  isModalVisible: false,
   userName: "",
 };
 
