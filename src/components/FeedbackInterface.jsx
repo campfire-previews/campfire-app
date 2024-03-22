@@ -5,6 +5,13 @@ import RecordingModal from "./RecordingModal.jsx";
 import ScreenshotModal from "./ScreenshotModal.jsx"; 
 import RecordingInterface from "./RecordingInterface";
 
+import * as rrweb from "rrweb";
+import rrwebPlayer from 'rrweb-player';
+import 'rrweb-player/dist/style.css';
+
+let events = [];
+let stopFn;
+
 const initialState = {
 	isConversationModalVisible: false,
 	isScreenshotModalVisible: false,
@@ -51,12 +58,27 @@ function FeedbackInterface({ repo, issue_number, comments, onCreateComment, iFra
 	}
 
 	const handleStartRecording = (e) => {
+		events = [];
 		dispatchModals({ type: "hide-all-modals" });
 		setIsRecording(true);
+		stopFn = new rrweb.record({
+			emit(event) {
+				console.log(event)
+				events.push(event);
+			},
+			recordCrossOriginIframes: true,
+		});
+
+		// the second argument for postMessage is the 'targetOrigin'
+		// eventually, the targetOrigin should be "https://CLIENT-APP-PR.preview.CLIENT_DOMAIN"
+		const URL_PATHNAME = window.location.pathname;
+		iFrameRef.current.contentWindow.postMessage(URL_PATHNAME, 'http://localhost:5174');
 	}
 
 	const handleStopRecording = (e) => {
 		setIsRecording(false);
+		stopFn();
+		dispatchModals({ type: "display-recording-modal" });
 	} 
 
   return (
@@ -81,7 +103,7 @@ function FeedbackInterface({ repo, issue_number, comments, onCreateComment, iFra
 			{ state.isRecordingModalVisible ? 
 				<RecordingModal 
 					onHideModal={handleHideModal}
-					iFrameRef={iFrameRef}
+					events={events}
 			/> : null }
 
 			{ isRecording ? 
