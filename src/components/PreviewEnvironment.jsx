@@ -3,12 +3,14 @@ import { useParams } from "react-router";
 import ben from "../../ben/ben.js";
 import Preview from "./Preview";
 import FeedbackInterface from "./FeedbackInterface";
+import getUserData from "../utils/getUserData.js";
 
 function PreviewEnvironment() {
   const { repo, issue_number } = useParams();
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
+    getUserData();
     (async () => {
       let comments = await ben.getComments(repo, issue_number);
       console.log(comments);
@@ -18,7 +20,7 @@ function PreviewEnvironment() {
 
   const handleCreateComment = async (newComment) => {
     const userName = localStorage.getItem("userName");
-    const message = `🧑‍💻 *${userName} from campfire says:* \n ${newComment}`;
+    const message = `### 🧑‍💻 ${userName} from campfire says: \n ${newComment} \n ${getUserData()}`;
     const data = await ben.postComment(repo, issue_number, message);
     setComments((prevState) => prevState.concat(data));
   };
