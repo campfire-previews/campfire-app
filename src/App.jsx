@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NameModal from './components/NameModal';
 import DisplayNameBanner from './components/DisplayNameBanner';
+import Toolbox from './components/Toolbox'; 
 import "./App.css";
 
 import Dashboard from "./components/Dashboard.jsx";
@@ -19,7 +20,6 @@ function App() {
 
   useEffect(() => {
     const storedName = localStorage.getItem('userName');
-
     if (storedName) {
       setUserName(storedName);
     } else {
@@ -46,7 +46,10 @@ function App() {
         </Routes>
       </Router>
       <DisplayNameBanner userName={userName} onClick={toggleModal} />
-      {isModalVisible && <NameModal isVisible={isModalVisible} onSubmit={handleNameSubmit} defaultName={userName} />}
+      {!isModalVisible && <Toolbox />}
+      {isModalVisible && 
+        <NameModal isVisible={isModalVisible} onSubmit={handleNameSubmit} defaultName={userName} />
+      }
     </div>
   );
 }

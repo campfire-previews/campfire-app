@@ -1,5 +1,4 @@
 import { useReducer, useEffect, useState } from "react";
-import Toolbox from "./Toolbox.jsx";
 import ConversationModal from "./ConversationModal.jsx";
 import RecordingModal from "./RecordingModal.jsx";
 import ScreenshotModal from "./ScreenshotModal.jsx"; 
@@ -43,22 +42,6 @@ function reducer(state, action) {
 
 function FeedbackInterface({ repo, issue_number, comments, onCreateComment }) {
 	const [ state, dispatchModals ] = useReducer(reducer, {...initialState});
-	const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
-
-	useEffect(() => {
-    const handleUsernameSet = () => {
-        const userName = localStorage.getItem('userName');
-        setIsUserAuthenticated(!!userName);
-    };
-
-    window.addEventListener('username-set', handleUsernameSet);
-
-    handleUsernameSet();
-
-    return () => {
-        window.removeEventListener('username-set', handleUsernameSet);
-    };
-}, []);
 
 	const handleHideModal = () => {
 		dispatchModals({ type: "hide-all-modals" });
@@ -66,8 +49,6 @@ function FeedbackInterface({ repo, issue_number, comments, onCreateComment }) {
 
   return (
 		<>
-			{isUserAuthenticated && <Toolbox dispatchModals={dispatchModals}/>}
-
 			{ state.isConversationModalVisible ? 
 				<ConversationModal 
 					onHideModal={handleHideModal}
