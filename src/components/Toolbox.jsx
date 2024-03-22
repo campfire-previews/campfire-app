@@ -10,11 +10,10 @@ import ForumIcon from "@mui/icons-material/Forum";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import CelebrationIcon from "@mui/icons-material/Celebration";
-
 import LGTM from "../utils/LGTMMessage";
 import ConfettiExplosion from "react-confetti-explosion";
 
-function Toolbox({ dispatchModals, onCreateComment, repo, issue_number }) {
+function Toolbox({ dispatchModals, onCreateComment, repo, issue_number, handleStartRecording }) {
   const [isExploding, setIsExploding] = useState(false);
   const [isLGTMsent, setIsLGTMsent] = useState(false);
 
@@ -29,9 +28,7 @@ function Toolbox({ dispatchModals, onCreateComment, repo, issue_number }) {
     {
       icon: <VideocamIcon />,
       name: "New session replay",
-      onClick() {
-        dispatchModals({ type: "display-recording-modal" });
-      },
+      onClick() { handleStartRecording() }
     },
     {
       icon: <CameraAltIcon />,

@@ -30,6 +30,8 @@
     "react-markdown": "^9.0.1",
     "react-router-dom": "^6.22.2",
     "remark-gfm": "^4.0.0",
+    "rrweb": "^2.0.0-alpha.4",
+    "rrweb-player": "^1.0.0-alpha.4"
     "ua-parser-js": "^1.0.37"
   },
   "devDependencies": {

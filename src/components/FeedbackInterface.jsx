@@ -3,8 +3,16 @@ import Toolbox from "./Toolbox.jsx";
 import NameModal from "./NameModal.jsx";
 import ConversationModal from "./ConversationModal.jsx";
 import RecordingModal from "./RecordingModal.jsx";
+import RecordingInterface from "./RecordingInterface";
 import ScreenshotModal from "./ScreenshotModal.jsx";
 import DisplayNameBanner from "./DisplayNameBanner.jsx";
+
+import * as rrweb from "rrweb";
+import rrwebPlayer from 'rrweb-player';
+import 'rrweb-player/dist/style.css';
+
+let events = [];
+let stopFn;
 
 const initialState = {
   isConversationModalVisible: false,
@@ -49,9 +57,10 @@ function reducer(state, action) {
   }
 }
 
-function FeedbackInterface({ repo, issue_number, comments, onCreateComment }) {
+function FeedbackInterface({ repo, issue_number, comments, onCreateComment, iFrameRef }) {
   const [state, dispatchModals] = useReducer(reducer, { ...initialState });
-
+  const [ isRecording, setIsRecording ] = useState(false);
+  
 	useEffect(() => {
     const userName = localStorage.getItem('userName');
     if (userName) {
@@ -74,6 +83,30 @@ function FeedbackInterface({ repo, issue_number, comments, onCreateComment }) {
     dispatchModals({ type: "hide-all-modals" });
   };
 
+	const handleStartRecording = (e) => {
+		events = [];
+		dispatchModals({ type: "hide-all-modals" });
+		setIsRecording(true);
+		stopFn = new rrweb.record({
+			emit(event) {
+				console.log(event)
+				events.push(event);
+			},
+			recordCrossOriginIframes: true,
+		});
+
+		// the second argument for postMessage is the 'targetOrigin'
+		// eventually, the targetOrigin should be "https://CLIENT-APP-PR.preview.CLIENT_DOMAIN"
+		const URL_PATHNAME = window.location.pathname;
+		iFrameRef.current.contentWindow.postMessage(URL_PATHNAME, 'http://localhost:5174');
+	}
+
+	const handleStopRecording = (e) => {
+		setIsRecording(false);
+		stopFn();
+		dispatchModals({ type: "display-recording-modal" });
+	} 
+
   return (
 		<>
 			<DisplayNameBanner userName={state.userName} onClick={toggleModal} />
@@ -81,12 +114,14 @@ function FeedbackInterface({ repo, issue_number, comments, onCreateComment }) {
       <NameModal isVisible={state.isModalVisible} onSubmit={handleNameSubmit} defaultName={state.userName} />
       ) : (
 			<Toolbox
+        handleStartRecording={handleStartRecording}
 				dispatchModals={dispatchModals}
 				onCreateComment={onCreateComment}
 				repo={repo}
 				issue_number={issue_number}
 			/>
       )}
+      
 			{state.isConversationModalVisible ? 
 				<ConversationModal 
 					onHideModal={handleHideModal}
@@ -94,14 +129,22 @@ function FeedbackInterface({ repo, issue_number, comments, onCreateComment }) {
 					comments={comments}
 			/> : null }
 
-      {state.isScreenshotModalVisible ? (
-        <ScreenshotModal onHideModal={handleHideModal} />
-      ) : null}
+			{ state.isScreenshotModalVisible ? 
+				<ScreenshotModal
+					onHideModal={handleHideModal}
+			/> : null }
+			
+			{ state.isRecordingModalVisible ? 
+				<RecordingModal 
+					onHideModal={handleHideModal}
+					events={events}
+			/> : null }
 
-      {state.isRecordingModalVisible ? (
-        <RecordingModal onHideModal={handleHideModal} />
-      ) : null}
-    </>
+			{ isRecording ? 
+				<RecordingInterface 
+					handleStopRecording={handleStopRecording}
+			/> : null }
+		</>
   );
 }
 
