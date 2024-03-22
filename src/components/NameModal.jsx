@@ -1,28 +1,57 @@
 import React, { useState, useEffect } from 'react';
 
-const NameModal = ({ isVisible, onSubmit, defaultName }) => {
+const NameModal = ({ isVisible, onSubmit, defaultName, onClose = () => {} }) => {
   const [name, setName] = useState(defaultName || '');
+  const [isEditing, setIsEditing] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     setName(defaultName);
-  }, [defaultName]);
+    setIsEditing(!!localStorage.getItem('userName'));
+    setError(''); 
+  }, [defaultName, isVisible]);
+
+  const handleOutsideClick = (event) => {
+    if (!event.target.closest('#name-modal-content') && isEditing && name) {
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    if (isVisible) {
+      document.addEventListener('click', handleOutsideClick);
+    } else {
+      document.removeEventListener('click', handleOutsideClick);
+    }
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [isVisible, isEditing, name]);
 
   const handleSubmit = () => {
     event.preventDefault();
-    console.log('username: ', name);
+    if (!name.trim()) {
+      setError('Name is required');
+      return;
+    }
     onSubmit(name);
+    window.dispatchEvent(new CustomEvent('username-set'));
   };
 
   if (!isVisible) return null;
 
   return (
-    <div className="name-modal-overlay">
+    <div className="name-modal-overlay" onClick={handleOutsideClick}>
       <div id="name-modal-content" className="name-modal-content">
         <form onSubmit={handleSubmit}>
-          <h1>welcome to campfire!</h1>
-          <h2>what is your name? (for comments)</h2>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-          <button onClick={handleSubmit}>join the campfire</button>
+          <h1>{isEditing ? 'thanks for using campfire!' : 'welcome to campfire!'}</h1>
+          <h2>{isEditing ? 'please update your name:' : 'what is your name? (for comments)'}</h2>
+          <input type="text" value={name} onChange={(e) => {
+            setName(e.target.value);
+            setError('');  // clear error when user starts typing
+          }} />
+          {error && <div style={{ color: 'red' }}>{error}</div>}
+          <button type="submit">{isEditing ? 'save changes' : 'join the campfire'}</button>
         </form>
       </div>
     </div>
