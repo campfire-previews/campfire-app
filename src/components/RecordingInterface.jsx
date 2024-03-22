@@ -18,8 +18,7 @@ function RecordingInterface({ handleStopRecording }) {
 				<p>Recording...</p>
 				<Dot isDotVisible={isDotVisible}/>
 			</div>
-			<button onClick={handleStopRecording}>Stop Recording</button>
-      
+			<button onClick={handleStopRecording}>Stop</button>
     </div>
   );
 }

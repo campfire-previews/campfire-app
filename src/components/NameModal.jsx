@@ -38,8 +38,6 @@ const NameModal = ({ isVisible, onSubmit, defaultName, onClose = () => {} }) => 
     window.dispatchEvent(new CustomEvent('username-set'));
   };
 
-  if (!isVisible) return null;
-
   return (
     <div className="name-modal-overlay" onClick={handleOutsideClick}>
       <div id="name-modal-content" className="name-modal-content">
