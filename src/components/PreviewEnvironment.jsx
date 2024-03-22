@@ -17,7 +17,9 @@ function PreviewEnvironment() {
   }, [repo, issue_number]);
 
   const handleCreateComment = async (newComment) => {
-    const data = await ben.postComment(repo, issue_number, newComment);
+    const userName = localStorage.getItem("userName");
+    const message = `🧑‍💻 *${userName} from campfire says:* \n ${newComment}`;
+    const data = await ben.postComment(repo, issue_number, message);
     setComments((prevState) => prevState.concat(data));
   };
 
