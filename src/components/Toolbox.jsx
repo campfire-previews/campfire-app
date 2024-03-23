@@ -16,15 +16,7 @@ import ConfettiExplosion from "react-confetti-explosion";
 function Toolbox({ dispatchModals, onCreateComment, repo, issue_number, handleStartRecording }) {
   const [isExploding, setIsExploding] = useState(false);
   const [isLGTMsent, setIsLGTMsent] = useState(false);
-
-  useEffect(() => {
-    setIsLGTMsent(!!localStorage.getItem(`LGTM-${repo}-${issue_number}`));
-    if (!!localStorage.getItem(`LGTM-${repo}-${issue_number}`)) {
-      console.log("EFFECTS LGTMSET", isLGTMsent);
-      updateLGTMtoConfetti();
-    }
-  }, []);
-  const [tools, setTools] = useState([
+	const [tools, setTools] = useState([
     {
       icon: <VideocamIcon />,
       name: "New session replay",
@@ -67,6 +59,13 @@ function Toolbox({ dispatchModals, onCreateComment, repo, issue_number, handleSt
     },
   ]);
 
+  useEffect(() => {
+    setIsLGTMsent(!!localStorage.getItem(`LGTM-${repo}-${issue_number}`));
+    if (!!localStorage.getItem(`LGTM-${repo}-${issue_number}`)) {
+      updateLGTMtoConfetti();
+    }
+  }, []);
+
   const largeProps = {
     force: 0.8,
     duration: 3000,
@@ -77,37 +76,35 @@ function Toolbox({ dispatchModals, onCreateComment, repo, issue_number, handleSt
 
   // Temporarily changes tool's title to new title, reverts back to original
   const updateToolTitle = (originalTitle, newTitle) => {
-    const originalTools = tools.slice();
-    const originalTool = originalTools.find(
-      (tool) => tool.name === originalTitle
-    );
-    const updatedTool = { ...originalTool, name: newTitle };
-    const updatedTools = originalTools.map((tool) =>
-      tool.name === originalTitle ? updatedTool : tool
-    );
+    setTools((prevState) => {
+			const updatedTools = prevState.map((tool) => {
+				return tool.name === originalTitle ? { ...tool, name: newTitle } : tool;
+			});
 
-    setTools((prevState) => updatedTools);
-    setTimeout(() => {
-			setTools((prevState) => originalTools)
-		}, 2000);
+			setTimeout(() => {
+				setTools((prevState) => prevState.map((tool) => {
+					return tool.name === newTitle ? { ...tool, name: originalTitle } : tool
+				}));
+			}, 2000);
+
+			return updatedTools;
+		});
   };
 
   // Changes tool icon
   const updateLGTMtoConfetti = () => {
-    const originalTools = tools.slice();
-    const originalTool = originalTools.find(
-      (tool) => tool.name === "Looks good to me!"
-    );
-    const updatedTool = {
-      ...originalTool,
-      icon: <CelebrationIcon />,
-      name: "Confetti!",
-    };
-    const updatedTools = originalTools.map((tool) =>
-      tool.name === "Looks good to me!" ? updatedTool : tool
-    );
+    setTools((prevState) => {
+			const updatedTool = {
+	      icon: <CelebrationIcon />,
+	      name: "Confetti!",
+	    };
 
-    setTools((prevState) => updatedTools);
+			const updatedTools = prevState.map((tool) => {
+				return tool.name === "Looks good to me!" ? { ...tool, ...updatedTool } : tool
+			});
+
+			return updatedTools;
+		});
   };
 
   return (
