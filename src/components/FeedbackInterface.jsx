@@ -5,7 +5,7 @@ import ConversationModal from "./ConversationModal.jsx";
 import RecordingModal from "./RecordingModal.jsx";
 import RecordingInterface from "./RecordingInterface";
 import ScreenshotModal from "./ScreenshotModal.jsx";
-import DisplayNameBanner from "./DisplayNameBanner.jsx";
+import NameBanner from "./NameBanner.jsx";
 import * as rrweb from "rrweb";
 import "rrweb-player/dist/style.css";
 const SUBDOMAIN = import.meta.env.VITE_SUBDOMAIN;
@@ -17,7 +17,7 @@ const initialState = {
   isConversationModalVisible: false,
   isScreenshotModalVisible: false,
   isRecordingModalVisible: false,
-  isModalVisible: false,
+  isNameModalVisible: false,
   userName: "",
 };
 
@@ -25,33 +25,41 @@ function reducer(state, action) {
   switch (action.type) {
     case "display-conversation-modal":
       return {
+				...state,
         isConversationModalVisible: true,
         isScreenshotModalVisible: false,
         isRecordingModalVisible: false,
+				isNameModalVisible: false,
       };
     case "display-screenshot-modal":
       return {
+				...state,
         isConversationModalVisible: false,
         isScreenshotModalVisible: true,
         isRecordingModalVisible: false,
+				isNameModalVisible: false,
       };
     case "display-recording-modal":
       return {
+				...state,
         isConversationModalVisible: false,
         isScreenshotModalVisible: false,
         isRecordingModalVisible: true,
+				isNameModalVisible: false,
       };
     case "hide-all-modals":
       return {
+				...state,
         isConversationModalVisible: false,
         isScreenshotModalVisible: false,
         isRecordingModalVisible: false,
+				isNameModalVisible: false,
       };
     case "toggle-name-modal":
       console.log("toggle-name-modal");
-      return { ...state, isModalVisible: !state.isModalVisible };
+      return { ...state, isNameModalVisible: !state.isNameModalVisible };
     case "set-user-name":
-      return { ...state, userName: action.payload, isModalVisible: false };
+      return { ...state, userName: action.payload, isNameModalVisible: false };
     default:
       throw new Error(`The action for ${action.type} does not exist.`);
   }
@@ -123,10 +131,23 @@ function FeedbackInterface({
 
   return (
     <>
-      <DisplayNameBanner userName={state.userName} onClick={toggleModal} />
-      {state.isModalVisible ? (
+			<div id="miscOverlay">
+				{state.userName ? (
+				<NameBanner 
+					userName={state.userName} 
+					onClick={toggleModal} 
+				/>	
+				) : null }
+
+				{isRecording ? (
+        <RecordingInterface handleStopRecording={handleStopRecording} />
+      	) : null}
+			</div>
+      
+      
+			{state.isNameModalVisible ? (
         <NameModal
-          isVisible={state.isModalVisible}
+          isVisible={state.isNameModalVisible}
           onSubmit={handleNameSubmit}
           defaultName={state.userName}
         />
@@ -156,9 +177,6 @@ function FeedbackInterface({
         <RecordingModal onHideModal={handleHideModal} events={events} />
       ) : null}
 
-      {isRecording ? (
-        <RecordingInterface handleStopRecording={handleStopRecording} />
-      ) : null}
     </>
   );
 }
