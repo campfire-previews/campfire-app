@@ -1,3 +1,3 @@
 # campfire-app
 
-The feedback interface for campfire to enable collaborative commenting on deploy preview environments.
+The feedback interface for campfire to enable collaborative commenting on deploy previews.
