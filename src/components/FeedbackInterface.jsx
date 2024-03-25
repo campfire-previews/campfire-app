@@ -12,7 +12,7 @@ import AdBlockerMessage from './AdBlockerMessage';
 const SUBDOMAIN = import.meta.env.VITE_SUBDOMAIN;
 const USER_DOMAIN = import.meta.env.VITE_USER_DOMAIN;
 let events = [];
-let stopFn;
+// let stopFn;
 
 const initialState = {
   isConversationModalVisible: false,
@@ -78,7 +78,7 @@ function FeedbackInterface({
 }) {
   const [state, dispatchModals] = useReducer(reducer, { ...initialState });
   const [isRecording, setIsRecording] = useState(false);
-  const [RecordingModal, setRecordingModal] = useState(null); // State for dynamically loaded component
+  const [RecordingModal, setRecordingModal] = useState(null); // state for dynamically loaded component
   const [showAdBlockerMessage, setShowAdBlockerMessage] = useState(false);
 
   useEffect(() => {
@@ -129,13 +129,16 @@ function FeedbackInterface({
 
     import("rrweb").then(rrwebModule => {
       const rrweb = rrwebModule.default || rrwebModule;
-      stopFn = rrweb.record({
+      const stopFn = rrweb.record({
           emit(event) {
               console.log(event);
               events.push(event);
           },
           recordCrossOriginIframes: true,
       });
+
+      // Save stop function for later use
+      window.stopRecording = stopFn;
 
       // the second argument for postMessage is the 'targetOrigin'
       // eventually, the targetOrigin should be "https://CLIENT-APP-PR.preview.CLIENT_DOMAIN"
@@ -155,8 +158,10 @@ function FeedbackInterface({
 
   const handleStopRecording = (e) => {
     setIsRecording(false);
-    stopFn();
-    dispatchModals({ type: "display-recording-modal" });
+    if (window.stopRecording) {
+      window.stopRecording();
+      dispatchModals({ type: "display-recording-modal" });
+    }
   };
 
   return (
