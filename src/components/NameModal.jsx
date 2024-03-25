@@ -57,7 +57,7 @@ const NameModal = ({ isVisible, onSubmit, defaultName, onClose = () => {} }) => 
             setName(e.target.value);
             setError('');  // clear error when user starts typing
           }} />
-          {error && <div style={{ color: 'red' }}>{error}</div>}
+          {error && <div className="name-modal-error-message">{error}</div>}
           <button type="submit">{isEditing ? 'save changes' : 'join the campfire'}</button>
         </form>
       </div>
