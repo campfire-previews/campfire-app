@@ -38,7 +38,7 @@ const NameModal = ({ isVisible, onSubmit, defaultName, onClose = () => {} }) => 
     }
 
     const sanitized = DOMPurify.sanitize(trimmedName);
-    if (!sanitized) {
+    if (trimmedName !== sanitized) {
       setError('Please enter a valid username without special characters');
       return;
     }
