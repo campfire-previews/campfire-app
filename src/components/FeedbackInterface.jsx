@@ -115,10 +115,6 @@ function FeedbackInterface({
     const URL_PATHNAME = window.location.pathname;
     iFrameRef.current.contentWindow.postMessage(
       URL_PATHNAME,
-      "http://localhost:5174"
-    );
-    iFrameRef.current.contentWindow.postMessage(
-      URL_PATHNAME,
       `https://${repo}-${issue_number}.${SUBDOMAIN}.${USER_DOMAIN}`
     );
   };
