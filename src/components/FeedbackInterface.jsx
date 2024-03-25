@@ -211,10 +211,6 @@ function FeedbackInterface({
       {state.isRecordingModalVisible ? (
         <RecordingModal onHideModal={handleHideModal} events={events} />
       ) : null}
-
-      {isRecording ? (
-        <RecordingInterface handleStopRecording={handleStopRecording} />
-      ) : null}
     </>
   );
 }
