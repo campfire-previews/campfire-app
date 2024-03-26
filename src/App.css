@@ -187,6 +187,11 @@ html {
   background-color: #0056b3;
 }
 
+.name-modal-error-message {
+  color: red;
+  padding-bottom: 10px;
+}
+
 .name-banner {
   background-color: #007bff;
   color: white;
