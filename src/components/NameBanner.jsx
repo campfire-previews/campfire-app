@@ -8,8 +8,14 @@ const NameBanner = ({ userName, onClick }) => {
     setIsCollapsed(!isCollapsed);
   };
 
+  const handleBannerClick = (event) => {
+    if (!isCollapsed) {
+      onClick(event);
+    }
+  };
+
   return (
-    <div className={`name-banner ${isCollapsed ? 'name-banner-collapsed' : ''}`} onClick={onClick}>
+    <div className={`name-banner ${isCollapsed ? 'name-banner-collapsed' : ''}`} onClick={handleBannerClick}>
       <button className="name-banner-collapse-toggle-button" onClick={handleToggleCollapse}>
         <i className={`fas ${isCollapsed ? 'fa-angle-left' : 'fa-angle-right'}`}></i>
       </button>
