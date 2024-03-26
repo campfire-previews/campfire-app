@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import DOMPurify from 'dompurify';
 
 const NameModal = ({ isVisible, onSubmit, defaultName, onClose = () => {} }) => {
   const [name, setName] = useState(defaultName || '');
@@ -28,13 +29,21 @@ const NameModal = ({ isVisible, onSubmit, defaultName, onClose = () => {} }) => 
     };
   }, [isVisible, isEditing, name]);
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    if (!name.trim()) {
+    const trimmedName = name.trim();
+    if (!trimmedName) {
       setError('Name is required');
       return;
     }
-    onSubmit(name);
+
+    const sanitized = DOMPurify.sanitize(trimmedName);
+    if (trimmedName !== sanitized) {
+      setError('Please enter a valid username without special characters');
+      return;
+    }
+
+    onSubmit(sanitized);
     window.dispatchEvent(new CustomEvent('username-set'));
   };
 
