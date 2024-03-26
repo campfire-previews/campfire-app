@@ -197,7 +197,27 @@ html {
   color: white;
   padding: 10px 20px;
   border-radius: 10px 0 0 10px;
-	margin-top: 10px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.name-banner-collapse-toggle-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0 10px 0 0;
+  font-size: 20px;
+}
+
+.name-banner-hidden {
+  display: none;
+}
+
+.name-banner-collapsed {
+  padding: 10px;
 }
 
 #miscOverlay {
