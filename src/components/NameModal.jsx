@@ -17,23 +17,6 @@ const NameModal = ({
     setError("");
   }, [defaultName, isVisible]);
 
-  const handleOutsideClick = (event) => {
-    if (!event.target.closest("#name-modal-content") && isEditing && name) {
-      onClose();
-    }
-  };
-
-  useEffect(() => {
-    if (isVisible) {
-      document.addEventListener("click", handleOutsideClick);
-    } else {
-      document.removeEventListener("click", handleOutsideClick);
-    }
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  }, [isVisible, isEditing, name]);
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const trimmedName = name.trim();
@@ -53,7 +36,7 @@ const NameModal = ({
   };
 
   return (
-    <div className="name-modal-overlay" onClick={handleOutsideClick}>
+    <div className="name-modal-overlay">
       <div id="name-modal-content" className="name-modal-content">
         <form onSubmit={handleSubmit}>
           <h1>
