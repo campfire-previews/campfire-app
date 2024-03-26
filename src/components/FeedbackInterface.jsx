@@ -2,17 +2,14 @@ import { useReducer, useEffect, useState } from "react";
 import Toolbox from "./Toolbox.jsx";
 import NameModal from "./NameModal.jsx";
 import ConversationModal from "./ConversationModal.jsx";
-// import RecordingModal from "./RecordingModal.jsx";
 import RecordingInterface from "./RecordingInterface";
 import ScreenshotModal from "./ScreenshotModal.jsx";
 import NameBanner from "./NameBanner.jsx";
 import AdBlockerMessage from './AdBlockerMessage';
-// import * as rrweb from "rrweb";
-// import "rrweb-player/dist/style.css";
+
 const SUBDOMAIN = import.meta.env.VITE_SUBDOMAIN;
 const USER_DOMAIN = import.meta.env.VITE_USER_DOMAIN;
 let events = [];
-// let stopFn;
 
 const initialState = {
   isConversationModalVisible: false,
@@ -58,7 +55,6 @@ function reducer(state, action) {
 				isNameModalVisible: false,
       };
     case "toggle-name-modal":
-      console.log("toggle-name-modal");
       return { ...state, isNameModalVisible: !state.isNameModalVisible };
     case "set-user-name":
       return { ...state, userName: action.payload, isNameModalVisible: false };
@@ -78,28 +74,19 @@ function FeedbackInterface({
 }) {
   const [state, dispatchModals] = useReducer(reducer, { ...initialState });
   const [isRecording, setIsRecording] = useState(false);
-  const [RecordingModal, setRecordingModal] = useState(null); // state for dynamically loaded component
+  const [RecordingModal, setRecordingModal] = useState(null);
   const [showAdBlockerMessage, setShowAdBlockerMessage] = useState(false);
 
   useEffect(() => {
     const userName = localStorage.getItem("userName");
-    console.log("USE EFFECT ", userName);
     if (userName) {
       dispatchModals({ type: "set-user-name", payload: userName });
     } else {
       dispatchModals({ type: "toggle-name-modal" });
     }
 
-    // dynamic import for RecordingModal
     import("./RecordingModal.jsx")
       .then((module) => {
-        console.log('importing RecordingModal...');
-        // dynamically load rrweb-player CSS
-        // const link = document.createElement('link');
-        // link.href = 'rrweb-player/dist/style.css';
-        // link.type = 'text/css';
-        // link.rel = 'stylesheet';
-        // document.head.appendChild(link);
         setRecordingModal(() => module.default);
         dispatchModals({ type: "recording-modal-loaded", payload: true });
       })
@@ -137,7 +124,6 @@ function FeedbackInterface({
           recordCrossOriginIframes: true,
       });
 
-      // Save stop function for later use
       window.stopRecording = stopFn;
 
       // the second argument for postMessage is the 'targetOrigin'
