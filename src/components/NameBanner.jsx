@@ -4,24 +4,23 @@ const NameBanner = ({ userName, onClick }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const handleToggleCollapse = (event) => {
-    event.stopPropagation();  // prevent onClick from being triggered when toggling collapse
+    event.stopPropagation();
     setIsCollapsed(!isCollapsed);
   };
 
-  const handleBannerClick = (event) => {
-    if (!isCollapsed) {
-      onClick(event);
-    }
-  };
-
   return (
-    <div className={`name-banner ${isCollapsed ? 'name-banner-collapsed' : ''}`} onClick={handleBannerClick}>
+    <div className={`name-banner ${isCollapsed ? 'name-banner-collapsed' : ''}`}>
       <button className="name-banner-collapse-toggle-button" onClick={handleToggleCollapse}>
         <i className={`fas ${isCollapsed ? 'fa-angle-left' : 'fa-angle-right'}`}></i>
       </button>
       <span className={isCollapsed ? 'name-banner-hidden' : ''}>
         visiting campfire as {userName}
       </span>
+      {!isCollapsed && (
+        <button className="name-banner-edit-button" onClick={onClick}>
+          <i className="fas fa-pencil-alt"></i>
+        </button>
+      )}
     </div>
   );
 };

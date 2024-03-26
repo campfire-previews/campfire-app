@@ -220,6 +220,19 @@ html {
   padding: 10px;
 }
 
+.name-banner-edit-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.name-banner-edit-button:hover, 
+.name-banner-collapse-toggle-button:hover {
+  color: #cccccc;
+}
+
 #miscOverlay {
 	position: absolute;
 	top: 0;
