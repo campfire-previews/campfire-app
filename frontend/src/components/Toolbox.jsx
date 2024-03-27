@@ -10,23 +10,23 @@ import ForumIcon from "@mui/icons-material/Forum";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import CelebrationIcon from "@mui/icons-material/Celebration";
-import LGTM from "../utils/LGTMMessage";
 import ConfettiExplosion from "react-confetti-explosion";
 
-function Toolbox({ dispatchModals, onCreateComment, repo, issue_number, handleStartRecording }) {
+function Toolbox({
+  dispatchModals,
+  onCreateComment,
+  repo,
+  issue_number,
+  handleStartRecording,
+}) {
   const [isExploding, setIsExploding] = useState(false);
   const [isLGTMsent, setIsLGTMsent] = useState(false);
-	const [tools, setTools] = useState([
+  const [tools, setTools] = useState([
     {
       icon: <VideocamIcon />,
       name: "New session replay",
-      onClick() { handleStartRecording() }
-    },
-    {
-      icon: <CameraAltIcon />,
-      name: "New screenshot",
       onClick() {
-        dispatchModals({ type: "display-screenshot-modal" });
+        handleStartRecording();
       },
     },
     {
@@ -49,9 +49,11 @@ function Toolbox({ dispatchModals, onCreateComment, repo, issue_number, handleSt
       name: "Looks good to me!",
       onClick() {
         if (!isLGTMsent) {
-          onCreateComment(LGTM());
+          // set LGTM to true, first argument is disregarded
+          // by comment handler
+          onCreateComment("LGTM", true);
           localStorage.setItem(`LGTM-${repo}-${issue_number}`, true);
-          setIsLGTMsent(true);
+          setIsLGTMsent(() => true);
           updateLGTMtoConfetti();
         }
         setIsExploding((isExploding) => !isExploding);
@@ -66,7 +68,7 @@ function Toolbox({ dispatchModals, onCreateComment, repo, issue_number, handleSt
     }
   }, []);
 
-  const largeProps = {
+  const confettiProps = {
     force: 0.8,
     duration: 3000,
     particleCount: 300,
@@ -77,39 +79,45 @@ function Toolbox({ dispatchModals, onCreateComment, repo, issue_number, handleSt
   // Temporarily changes tool's title to new title, reverts back to original
   const updateToolTitle = (originalTitle, newTitle) => {
     setTools((prevState) => {
-			const updatedTools = prevState.map((tool) => {
-				return tool.name === originalTitle ? { ...tool, name: newTitle } : tool;
-			});
+      const updatedTools = prevState.map((tool) => {
+        return tool.name === originalTitle ? { ...tool, name: newTitle } : tool;
+      });
 
-			setTimeout(() => {
-				setTools((prevState) => prevState.map((tool) => {
-					return tool.name === newTitle ? { ...tool, name: originalTitle } : tool
-				}));
-			}, 2000);
+      setTimeout(() => {
+        setTools((prevState) =>
+          prevState.map((tool) => {
+            return tool.name === newTitle
+              ? { ...tool, name: originalTitle }
+              : tool;
+          })
+        );
+      }, 2000);
 
-			return updatedTools;
-		});
+      return updatedTools;
+    });
   };
 
   // Changes tool icon
   const updateLGTMtoConfetti = () => {
     setTools((prevState) => {
-			const updatedTool = {
-	      icon: <CelebrationIcon />,
-	      name: "Confetti!",
-	    };
+      const updatedTool = {
+        icon: <CelebrationIcon />,
+        name: "Confetti!",
+      };
 
-			const updatedTools = prevState.map((tool) => {
-				return tool.name === "Looks good to me!" ? { ...tool, ...updatedTool } : tool
-			});
+      const updatedTools = prevState.map((tool) => {
+        return tool.name === "Looks good to me!"
+          ? { ...tool, ...updatedTool }
+          : tool;
+      });
 
-			return updatedTools;
-		});
+      return updatedTools;
+    });
   };
 
   return (
     <>
-      {isExploding && <ConfettiExplosion {...largeProps} />}
+      {isExploding && <ConfettiExplosion {...confettiProps} />}
       <SpeedDial
         className="speedDial"
         ariaLabel="SpeedDial basic example"

@@ -1,10 +1,13 @@
 import ben from "./ben/ben.js";
 import express from "express";
 import formatComment from "./utils/formatComment.js";
+import { v4 as uuidv4 } from "uuid";
 
 const app = express();
 const port = 3000;
-app.use(express.json());
+app.use(express.json({ limit: "5mb" }));
+
+const SESSIONS = {};
 
 // Get all comments
 // return comments
@@ -45,22 +48,29 @@ app.post(
   }
 );
 
-// Upload a session replay to s3
-// return a link to the resource
-app.post(
-  "/api/session-replay/repo/:repo/issue_number/:issue_number",
+app.get(
+  "/api/session-replay/repo/:repo/issue_number/:issue_number/:id",
   (req, res) => {
-    res.send("Hello World!");
+    console.log(SESSIONS);
+    if (SESSIONS[req.params.id]) {
+      res.send(SESSIONS[req.params.id]);
+    } else {
+      res.status(404).send("Session not found");
+    }
   }
 );
-
-app.get("/api/session-replay/repo/:repo/issue_number/:issue_number/:id");
 // upload a user's photo to s3
 // return a link to the resource
+
+// Upload a session replay to s3
+// return the id
 app.post(
   "/api/session-replay/repo/:repo/issue_number/:issue_number",
   (req, res) => {
-    res.send("Hello World!");
+    const events = req.body;
+    const id = uuidv4();
+    SESSIONS[id] = events;
+    res.send(id);
   }
 );
 
