@@ -14,9 +14,14 @@ function PreviewEnvironment() {
   useEffect(() => {
     getUserData();
     (async () => {
-      let comments = await ben.getComments(repo, issue_number);
-      const filteredComments = removeBotPrefix(comments);
-      setComments(filteredComments);
+      try {
+        const response = await fetch(`https://r5mggbu5q0.execute-api.us-east-2.amazonaws.com/demo/${repo}/${issue_number}/comments`)
+        const { comments } = await response.json();
+        const filteredComments = removeBotPrefix(comments);
+        setComments(filteredComments);
+      } catch (error) {
+        throw error;
+      }
     })();
   }, [repo, issue_number]);
 
