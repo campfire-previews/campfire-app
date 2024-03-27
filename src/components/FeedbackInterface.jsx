@@ -3,7 +3,6 @@ import Toolbox from "./Toolbox.jsx";
 import NameModal from "./NameModal.jsx";
 import ConversationModal from "./ConversationModal.jsx";
 import RecordingInterface from "./RecordingInterface";
-import ScreenshotModal from "./ScreenshotModal.jsx";
 import NameBanner from "./NameBanner.jsx";
 import AdBlockerMessage from './AdBlockerMessage';
 
