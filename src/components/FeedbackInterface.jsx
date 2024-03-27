@@ -3,7 +3,6 @@ import Toolbox from "./Toolbox.jsx";
 import NameModal from "./NameModal.jsx";
 import ConversationModal from "./ConversationModal.jsx";
 import RecordingInterface from "./RecordingInterface";
-import ScreenshotModal from "./ScreenshotModal.jsx";
 import NameBanner from "./NameBanner.jsx";
 import AdBlockerMessage from './AdBlockerMessage';
 
@@ -13,7 +12,6 @@ let events = [];
 
 const initialState = {
   isConversationModalVisible: false,
-  isScreenshotModalVisible: false,
   isRecordingModalVisible: false,
   isNameModalVisible: false,
   userName: "",
@@ -26,15 +24,6 @@ function reducer(state, action) {
       return {
 				...state,
         isConversationModalVisible: true,
-        isScreenshotModalVisible: false,
-        isRecordingModalVisible: false,
-				isNameModalVisible: false,
-      };
-    case "display-screenshot-modal":
-      return {
-				...state,
-        isConversationModalVisible: false,
-        isScreenshotModalVisible: true,
         isRecordingModalVisible: false,
 				isNameModalVisible: false,
       };
@@ -42,7 +31,6 @@ function reducer(state, action) {
       return {
 				...state,
         isConversationModalVisible: false,
-        isScreenshotModalVisible: false,
         isRecordingModalVisible: true,
 				isNameModalVisible: false,
       };
@@ -50,7 +38,6 @@ function reducer(state, action) {
       return {
 				...state,
         isConversationModalVisible: false,
-        isScreenshotModalVisible: false,
         isRecordingModalVisible: false,
 				isNameModalVisible: false,
       };
@@ -188,10 +175,6 @@ function FeedbackInterface({
           onCreateComment={onCreateComment}
           comments={comments}
         />
-      ) : null}
-
-      {state.isScreenshotModalVisible ? (
-        <ScreenshotModal onHideModal={handleHideModal} />
       ) : null}
 
       {state.isRecordingModalVisible ? (

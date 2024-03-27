@@ -7,7 +7,6 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 import ShareIcon from "@mui/icons-material/Share";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ForumIcon from "@mui/icons-material/Forum";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import CelebrationIcon from "@mui/icons-material/Celebration";
 import LGTM from "../utils/LGTMMessage";
@@ -21,13 +20,6 @@ function Toolbox({ dispatchModals, onCreateComment, repo, issue_number, handleSt
       icon: <VideocamIcon />,
       name: "New session replay",
       onClick() { handleStartRecording() }
-    },
-    {
-      icon: <CameraAltIcon />,
-      name: "New screenshot",
-      onClick() {
-        dispatchModals({ type: "display-screenshot-modal" });
-      },
     },
     {
       icon: <ForumIcon />,
