@@ -53,7 +53,7 @@ function Editor({ onCreateComment }) {
             <ListPlugin />
             <LinkPlugin />
           </div>
-          <Button variant="contained" onClick={handleSubmit}>
+          <Button variant="contained" onClick={handleSubmit} sx={{ ml: 3.75 }} >
             Submit
           </Button>
         </div>
