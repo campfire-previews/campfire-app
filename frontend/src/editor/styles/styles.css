@@ -19,10 +19,10 @@
  *
  */
 
- body {
+body {
   margin: 0;
   background: #eee;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, '.SFNSText-Regular',
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular",
     sans-serif;
   font-weight: 500;
   -webkit-font-smoothing: antialiased;
@@ -103,6 +103,7 @@ h1 {
   top: 15px;
   left: 10px;
   font-size: 15px;
+  -webkit-user-select: none;
   user-select: none;
   display: inline-block;
   pointer-events: none;
@@ -400,6 +401,7 @@ pre::-webkit-scrollbar-thumb {
   display: flex;
   width: 20px;
   height: 20px;
+  -webkit-user-select: none;
   user-select: none;
   margin-right: 8px;
   line-height: 16px;

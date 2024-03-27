@@ -20,9 +20,15 @@ function PreviewEnvironment() {
     })();
   }, [repo, issue_number]);
 
-  const handleCreateComment = async (newComment) => {
-    const userName = localStorage.getItem("userName");
-    const message = `### 🧑‍💻 ${userName} from campfire says: \n ${newComment} \n ${getUserData()}`;
+  const handleCreateComment = async (newComment, LGTM=false) => {
+    const commentData = {
+      user: localStorage.getItem("userName"),
+      comment: newComment,
+      LGTM,
+      userData: getUserData()
+    }
+    // const userName = localStorage.getItem("userName");
+    // const message = `### 🧑‍💻 ${userName} from campfire says: \n ${newComment} \n ${getUserData()}`;
     const data = await ben.postComment(repo, issue_number, message);
     setComments((prevState) => prevState.concat(data));
   };

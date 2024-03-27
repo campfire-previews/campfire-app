@@ -1,6 +1,4 @@
 import { useState, useRef, useEffect } from 'react'
-
-import * as rrweb from "rrweb";
 import rrwebPlayer from 'rrweb-player';
 import 'rrweb-player/dist/style.css';
 
