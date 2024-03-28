@@ -16,19 +16,25 @@ function SessionReplay({  }) {
 		(async () => {
 			const response = await fetch(`https://r5mggbu5q0.execute-api.us-east-2.amazonaws.com/demo/repos/${repo}/issue_number/${issue_number}/session-replay/${id}`)
 			const { data: events } = await response.json();
-			const replayer = new rrwebPlayer({
-				target: playerRef.current,
-				props: { events }
-			});
-			replayer.play();
+			if (events.length > 0) {
+				const replayer = new rrwebPlayer({
+					target: playerRef.current,
+					props: { events }
+				});
+				replayer.play();
+			}
 		})()
 	}, []);
 
 
 	return (
 		<>
-			<main ref={playerRef}>
-			</main>
+			<div id="playerContainer">
+				<div id="playerMain" ref={playerRef}></div>
+				<a href={`${location.origin}/${repo}/${issue_number}`}>
+					<button>Visit preview environment</button>
+				</a>	
+			</div>
 		</>
 	)
 }
