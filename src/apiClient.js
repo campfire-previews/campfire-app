@@ -5,18 +5,20 @@ const baseURL = "https://r5mggbu5q0.execute-api.us-east-2.amazonaws.com/demo";
 api.getComments = async function (repo, issue_number) {
   const response = await axios.get(
     baseURL + `/repos/${repo}/issue_number/${issue_number}/comments`
+    baseURL + `/repos/${repo}/issue_number/${issue_number}/comments`
   );
 
+  return response.data.comments;
   return response.data.comments;
 };
 
 api.sendComment = async function (repo, issue_number, commentData) {
   const response = await axios.post(
     baseURL + `/repos/${repo}/issue_number/${issue_number}/comments`,
-    commentData,
+    JSON.stringify(commentData),
     { headers: { "Content-Type": "application/json" } }
   );
-  return response.data;
+  return response.data.data;
 };
 
 // expecting
@@ -26,15 +28,15 @@ api.saveSessionReplay = async function (repo, issue_number, events) {
     { body: events },
     { headers: { "Content-Type": "application/json" } }
   );
-  return response.data;
+  return response.data.id;
 };
 
 // expects event obj saved at the id
 api.getSessionReplay = async function (repo, issue_number, id) {
   const response = await axios.get(
-    baseURL + `/session-replay/repo/${repo}/issue_number/${issue_number}/${id}`
+    baseURL + `/repos/${repo}/issue_number/${issue_number}/session-replay/${id}`
   );
-  return response.data;
+  return response.data.data;
 };
 
 export default api;

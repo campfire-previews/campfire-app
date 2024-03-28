@@ -27,7 +27,7 @@ function reducer(state, action) {
         ...state,
         isConversationModalVisible: true,
         isRecordingModalVisible: false,
-				isNameModalVisible: false,
+        isNameModalVisible: false,
       };
     case "display-recording-modal":
       return {
@@ -114,7 +114,7 @@ function FeedbackInterface({
           recordCrossOriginIframes: true,
         });
 
-      window.stopRecording = stopFn;
+        window.stopRecording = stopFn;
 
         // the second argument for postMessage is the 'targetOrigin'
         // eventually, the targetOrigin should be "https://CLIENT-APP-PR.preview.CLIENT_DOMAIN"
