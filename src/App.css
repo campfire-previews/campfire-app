@@ -65,6 +65,13 @@ html {
   align-items: center;
 }
 
+#recording-modal #send-recording {
+  padding: 20px;
+}
+#player {
+  display: flex;
+}
+
 #editor-wrapper {
   flex: 1;
   /* height: 20px; */
@@ -91,15 +98,15 @@ html {
 }
 
 #recordingInterface {
-	background-color: #007bff;
+  background-color: #007bff;
   color: white;
   display: flex;
-	align-items: center;
-	justify-content: space-between;
+  align-items: center;
+  justify-content: space-between;
   z-index: 4;
-	margin-top: 10px;
-	padding: 10px 20px;
-	border-radius: 10px 0 0 10px;
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 10px 0 0 10px;
 }
 
 #recordingInterface > div {
@@ -108,11 +115,11 @@ html {
 }
 
 #recordingInterface > button {
-	color: white;
-	background-color: transparent;
-	border: none;
-	font-size: 15px;
-	padding: 0;
+  color: white;
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+  padding: 0;
 }
 
 #dot {
@@ -228,13 +235,13 @@ html {
   padding-left: 10px;
 }
 
-.name-banner-edit-button:hover, 
+.name-banner-edit-button:hover,
 .name-banner-collapse-toggle-button:hover {
   color: #cccccc;
 }
 
 #miscOverlay {
-	position: absolute;
-	top: 0;
-	right: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
 }

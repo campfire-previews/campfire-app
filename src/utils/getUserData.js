@@ -10,7 +10,7 @@ function getUserData() {
     width: window.innerWidth,
   };
 
-  return makeMarkdownTableOfUserData(userData);
+  return userData;
 }
 
 function makeMarkdownTableOfUserData(userData) {

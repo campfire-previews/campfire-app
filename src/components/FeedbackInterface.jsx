@@ -1,13 +1,15 @@
-import { useReducer, useEffect, useState } from "react";
+import { useReducer, useEffect, useState, createContext } from "react";
 import Toolbox from "./Toolbox.jsx";
 import NameModal from "./NameModal.jsx";
 import ConversationModal from "./ConversationModal.jsx";
-import RecordingInterface from "./RecordingInterface";
+import api from "../apiClient.js";
+import RecordingInterface from "./RecordingInterface.jsx";
 import NameBanner from "./NameBanner.jsx";
-import AdBlockerMessage from './AdBlockerMessage';
+import AdBlockerMessage from "./AdBlockerMessage.jsx";
 
 const SUBDOMAIN = import.meta.env.VITE_SUBDOMAIN;
 const USER_DOMAIN = import.meta.env.VITE_USER_DOMAIN;
+export const SessionReplayIdContext = createContext();
 let events = [];
 
 const initialState = {
@@ -22,24 +24,24 @@ function reducer(state, action) {
   switch (action.type) {
     case "display-conversation-modal":
       return {
-				...state,
+        ...state,
         isConversationModalVisible: true,
         isRecordingModalVisible: false,
 				isNameModalVisible: false,
       };
     case "display-recording-modal":
       return {
-				...state,
+        ...state,
         isConversationModalVisible: false,
         isRecordingModalVisible: true,
-				isNameModalVisible: false,
+        isNameModalVisible: false,
       };
     case "hide-all-modals":
       return {
-				...state,
+        ...state,
         isConversationModalVisible: false,
         isRecordingModalVisible: false,
-				isNameModalVisible: false,
+        isNameModalVisible: false,
       };
     case "toggle-name-modal":
       return { ...state, isNameModalVisible: !state.isNameModalVisible };
@@ -63,7 +65,7 @@ function FeedbackInterface({
   const [isRecording, setIsRecording] = useState(false);
   const [RecordingModal, setRecordingModal] = useState(null);
   const [showAdBlockerMessage, setShowAdBlockerMessage] = useState(false);
-
+  const [sessionReplayId, setSessionReplayId] = useState(null);
   useEffect(() => {
     const userName = localStorage.getItem("userName");
     if (userName) {
@@ -78,7 +80,7 @@ function FeedbackInterface({
         dispatchModals({ type: "recording-modal-loaded", payload: true });
       })
       .catch((error) => {
-        console.error('Failed to load RecordingModal:', error);
+        console.error("Failed to load RecordingModal:", error);
         setShowAdBlockerMessage(true);
       });
   }, [state.isRecordingModalVisible]);
@@ -96,40 +98,42 @@ function FeedbackInterface({
     dispatchModals({ type: "hide-all-modals" });
   };
 
-  const handleStartRecording = (e) => {
+  const handleStartRecording = () => {
     events = [];
     dispatchModals({ type: "hide-all-modals" });
     setIsRecording(true);
 
-    import("rrweb").then(rrwebModule => {
-      const rrweb = rrwebModule.default || rrwebModule;
-      const stopFn = rrweb.record({
+    import("rrweb")
+      .then((rrwebModule) => {
+        const rrweb = rrwebModule.default || rrwebModule;
+        const stopFn = rrweb.record({
           emit(event) {
-              console.log(event);
-              events.push(event);
+            // console.log(event);
+            events.push(event);
           },
           recordCrossOriginIframes: true,
-      });
+        });
 
       window.stopRecording = stopFn;
 
-      // the second argument for postMessage is the 'targetOrigin'
-      // eventually, the targetOrigin should be "https://CLIENT-APP-PR.preview.CLIENT_DOMAIN"
-      const URL_PATHNAME = window.location.pathname;
-      iFrameRef.current.contentWindow.postMessage(
-        URL_PATHNAME,
-        "http://localhost:5174"
-      );
-      iFrameRef.current.contentWindow.postMessage(
-        URL_PATHNAME,
-        `https://${repo}-${issue_number}.${SUBDOMAIN}.${USER_DOMAIN}`
-      );
-    }).catch(error => {
-      console.error('Failed to load rrweb:', error);
-    });
+        // the second argument for postMessage is the 'targetOrigin'
+        // eventually, the targetOrigin should be "https://CLIENT-APP-PR.preview.CLIENT_DOMAIN"
+        const URL_PATHNAME = window.location.pathname;
+        // iFrameRef.current.contentWindow.postMessage(
+        //   URL_PATHNAME,
+        //   "http://localhost:5174"
+        // );
+        iFrameRef.current.contentWindow.postMessage(
+          URL_PATHNAME,
+          `https://${repo}-${issue_number}.${SUBDOMAIN}.${USER_DOMAIN}`
+        );
+      })
+      .catch((error) => {
+        console.error("Failed to load rrweb:", error);
+      });
   };
 
-  const handleStopRecording = (e) => {
+  const handleStopRecording = () => {
     setIsRecording(false);
     if (window.stopRecording) {
       window.stopRecording();
@@ -137,23 +141,26 @@ function FeedbackInterface({
     }
   };
 
+  const handleSendRecording = async () => {
+    const id = await api.saveSessionReplay(repo, issue_number, events);
+    setSessionReplayId(id);
+    console.log(id);
+    dispatchModals({ type: "display-conversation-modal" });
+  };
   return (
     <>
       {showAdBlockerMessage && <AdBlockerMessage />}
-			<div id="miscOverlay">
-				{state.userName ? (
-				<NameBanner 
-					userName={state.userName} 
-					onClick={toggleModal} 
-				/>	
-				) : null }
+      <div id="miscOverlay">
+        {state.userName ? (
+          <NameBanner userName={state.userName} onClick={toggleModal} />
+        ) : null}
 
-				{isRecording ? (
-        <RecordingInterface handleStopRecording={handleStopRecording} />
-      	) : null}
-			</div>
-      
-			{state.isNameModalVisible ? (
+        {isRecording ? (
+          <RecordingInterface handleStopRecording={handleStopRecording} />
+        ) : null}
+      </div>
+
+      {state.isNameModalVisible ? (
         <NameModal
           isVisible={state.isNameModalVisible}
           onSubmit={handleNameSubmit}
@@ -170,15 +177,21 @@ function FeedbackInterface({
       )}
 
       {state.isConversationModalVisible ? (
-        <ConversationModal
-          onHideModal={handleHideModal}
-          onCreateComment={onCreateComment}
-          comments={comments}
-        />
+        <SessionReplayIdContext.Provider value={sessionReplayId}>
+          <ConversationModal
+            onHideModal={handleHideModal}
+            onCreateComment={onCreateComment}
+            comments={comments}
+          />
+        </SessionReplayIdContext.Provider>
       ) : null}
 
       {state.isRecordingModalVisible ? (
-        <RecordingModal onHideModal={handleHideModal} events={events} />
+        <RecordingModal
+          onHideModal={handleHideModal}
+          events={events}
+          onSendRecording={handleSendRecording}
+        />
       ) : null}
     </>
   );
