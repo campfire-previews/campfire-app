@@ -19,6 +19,23 @@ html {
   overflow-wrap: break-word;
 }
 
+.comment-body img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: auto;
+  margin: 10px 0;
+}
+
+.comment-body table {
+  margin-top: 15px;
+}
+
+.comment-body th {
+  text-align: left;
+}
+
 #conversation-container {
   box-sizing: border-box;
   display: flex;
