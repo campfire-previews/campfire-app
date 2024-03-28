@@ -19,7 +19,6 @@ function Toolbox({
   handleStartRecording,
 }) {
   const [isExploding, setIsExploding] = useState(false);
-  const [isLGTMsent, setIsLGTMsent] = useState(false);
   const [tools, setTools] = useState([
     {
       icon: <VideocamIcon />,
@@ -47,21 +46,15 @@ function Toolbox({
       icon: <ThumbUpIcon />,
       name: "Looks good to me!",
       onClick() {
-        if (!isLGTMsent) {
-          // set LGTM to true, first argument is disregarded
-          // by comment handler
-          onCreateComment("LGTM", true);
-          localStorage.setItem(`LGTM-${repo}-${issue_number}`, true);
-          setIsLGTMsent(() => true);
-          updateLGTMtoConfetti();
-        }
+        onCreateComment("LGTM", true); // set LGTM to true, first argument is disregarded by comment handler
+        localStorage.setItem(`LGTM-${repo}-${issue_number}`, true);
+        updateLGTMtoConfetti();
         setIsExploding((isExploding) => !isExploding);
       },
     },
   ]);
 
   useEffect(() => {
-    setIsLGTMsent(!!localStorage.getItem(`LGTM-${repo}-${issue_number}`));
     if (!!localStorage.getItem(`LGTM-${repo}-${issue_number}`)) {
       updateLGTMtoConfetti();
     }
@@ -102,12 +95,13 @@ function Toolbox({
       const updatedTool = {
         icon: <CelebrationIcon />,
         name: "Confetti!",
+        onClick() {
+          setIsExploding((isExploding) => !isExploding);
+        },
       };
 
       const updatedTools = prevState.map((tool) => {
-        return tool.name === "Looks good to me!"
-          ? { ...tool, ...updatedTool }
-          : tool;
+        return tool.name === "Looks good to me!" ? updatedTool : tool;
       });
 
       return updatedTools;
