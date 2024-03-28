@@ -19,7 +19,6 @@ function Toolbox({
   handleStartRecording,
 }) {
   const [isExploding, setIsExploding] = useState(false);
-  const [isLGTMsent, setIsLGTMsent] = useState(true);
   const [tools, setTools] = useState([
     {
       icon: <VideocamIcon />,
@@ -49,7 +48,6 @@ function Toolbox({
       onClick() {
         onCreateComment("LGTM", true); // set LGTM to true, first argument is disregarded by comment handler
         localStorage.setItem(`LGTM-${repo}-${issue_number}`, true);
-        setIsLGTMsent(() => true);
         updateLGTMtoConfetti();
         setIsExploding((isExploding) => !isExploding);
       },
@@ -57,7 +55,6 @@ function Toolbox({
   ]);
 
   useEffect(() => {
-    setIsLGTMsent(!!localStorage.getItem(`LGTM-${repo}-${issue_number}`));
     if (!!localStorage.getItem(`LGTM-${repo}-${issue_number}`)) {
       updateLGTMtoConfetti();
     }
@@ -99,7 +96,6 @@ function Toolbox({
         icon: <CelebrationIcon />,
         name: "Confetti!",
         onClick() {
-          console.log("Updated On Click");
           setIsExploding((isExploding) => !isExploding);
         },
       };
