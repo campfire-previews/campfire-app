@@ -31,8 +31,9 @@ html {
   position: absolute;
   z-index: 2;
   height: 70vh;
-  min-width: 300px;
   max-width: 70vw;
+  min-height: 373.767px;
+  min-width: 620px;
   /* padding: 10px; */
   /* overflow-y: scroll; */
 }
