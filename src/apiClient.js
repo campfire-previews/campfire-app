@@ -5,10 +5,8 @@ const baseURL = "https://r5mggbu5q0.execute-api.us-east-2.amazonaws.com/demo";
 api.getComments = async function (repo, issue_number) {
   const response = await axios.get(
     baseURL + `/repos/${repo}/issue_number/${issue_number}/comments`
-    baseURL + `/repos/${repo}/issue_number/${issue_number}/comments`
   );
 
-  return response.data.comments;
   return response.data.comments;
 };
 
