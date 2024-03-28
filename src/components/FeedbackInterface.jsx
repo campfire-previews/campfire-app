@@ -3,9 +3,9 @@ import Toolbox from "./Toolbox.jsx";
 import NameModal from "./NameModal.jsx";
 import ConversationModal from "./ConversationModal.jsx";
 import api from "../apiClient.js";
-import RecordingInterface from "./RecordingInterface";
+import RecordingInterface from "./RecordingInterface.jsx";
 import NameBanner from "./NameBanner.jsx";
-import AdBlockerMessage from "./AdBlockerMessage";
+import AdBlockerMessage from "./AdBlockerMessage.jsx";
 
 const SUBDOMAIN = import.meta.env.VITE_SUBDOMAIN;
 const USER_DOMAIN = import.meta.env.VITE_USER_DOMAIN;

@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router";
 import api from "../apiClient.js";
-import Preview from "./Preview";
+import Preview from "./Preview.jsx";
 import removeBotPrefix from "../utils/removeBotComments.js";
-import FeedbackInterface from "./FeedbackInterface";
+import FeedbackInterface from "./FeedbackInterface.jsx";
 import getUserData from "../utils/getUserData.js";
 
 function PreviewEnvironment() {
