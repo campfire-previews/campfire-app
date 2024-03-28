@@ -38,11 +38,15 @@ html {
 
 .closeIcon {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: -1px;
+  right: -27px;
   cursor: pointer;
   font-size: 24px;
-  color: #b7b7b7;
+  color: #fff;
+  background-color: #E2554F;
+  padding: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 #conversation-container {
@@ -51,7 +55,9 @@ html {
   flex-direction: column;
   background-color: white;
   border: 1px solid rgb(181, 181, 181);
-  border-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
   font-family: sans-serif;
   margin-top: 10vh;
   position: absolute;
