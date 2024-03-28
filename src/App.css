@@ -19,6 +19,32 @@ html {
   overflow-wrap: break-word;
 }
 
+.comment-body img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: auto;
+  margin: 10px 0;
+}
+
+.comment-body table {
+  margin-top: 15px;
+}
+
+.comment-body th {
+  text-align: left;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #b7b7b7;
+}
+
 #conversation-container {
   box-sizing: border-box;
   display: flex;
@@ -31,8 +57,9 @@ html {
   position: absolute;
   z-index: 2;
   height: 70vh;
-  min-width: 300px;
   max-width: 70vw;
+  min-height: 373.767px;
+  min-width: 620px;
   /* padding: 10px; */
   /* overflow-y: scroll; */
 }
