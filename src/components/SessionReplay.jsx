@@ -27,8 +27,7 @@ function SessionReplay({  }) {
 
 	return (
 		<>
-			<main ref={playerRef}>
-			</main>
+			<main ref={playerRef}></main>
 		</>
 	)
 }

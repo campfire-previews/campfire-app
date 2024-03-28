@@ -6,10 +6,12 @@ import api from "../apiClient.js";
 import RecordingInterface from "./RecordingInterface.jsx";
 import NameBanner from "./NameBanner.jsx";
 import AdBlockerMessage from "./AdBlockerMessage.jsx";
+import getUserData from "../utils/getUserData.js";
+import removeBotComments from "../utils/removeBotComments.js";
 
 const SUBDOMAIN = import.meta.env.VITE_SUBDOMAIN;
 const USER_DOMAIN = import.meta.env.VITE_USER_DOMAIN;
-export const SessionReplayIdContext = createContext();
+export const SessionReplayContext = createContext();
 let events = [];
 
 const initialState = {
@@ -57,8 +59,6 @@ function reducer(state, action) {
 function FeedbackInterface({
   repo,
   issue_number,
-  comments,
-  onCreateComment,
   iFrameRef,
 }) {
   const [state, dispatchModals] = useReducer(reducer, { ...initialState });
@@ -66,6 +66,18 @@ function FeedbackInterface({
   const [RecordingModal, setRecordingModal] = useState(null);
   const [showAdBlockerMessage, setShowAdBlockerMessage] = useState(false);
   const [sessionReplayId, setSessionReplayId] = useState(null);
+  const [comments, setComments] = useState([]);
+
+
+  useEffect(() => {
+    getUserData();
+    (async () => {
+      let comments = await api.getComments(repo, issue_number);
+      const filteredComments = removeBotComments(comments);
+      setComments(filteredComments);
+    })();
+  }, [repo, issue_number]);
+
   useEffect(() => {
     const userName = localStorage.getItem("userName");
     if (userName) {
@@ -96,6 +108,18 @@ function FeedbackInterface({
 
   const handleHideModal = () => {
     dispatchModals({ type: "hide-all-modals" });
+  };
+
+  const handleCreateComment = async (newComment, LGTM = false) => {
+    const commentData = {
+      user: localStorage.getItem("userName"),
+      comment: newComment,
+      LGTM,
+      userData: getUserData(),
+    };
+
+    const data = await api.sendComment(repo, issue_number, commentData);
+    setComments((prevState) => prevState.concat(data));
   };
 
   const handleStartRecording = () => {
@@ -170,20 +194,20 @@ function FeedbackInterface({
         <Toolbox
           handleStartRecording={handleStartRecording}
           dispatchModals={dispatchModals}
-          onCreateComment={onCreateComment}
+          onCreateComment={handleCreateComment}
           repo={repo}
           issue_number={issue_number}
         />
       )}
 
       {state.isConversationModalVisible ? (
-        <SessionReplayIdContext.Provider value={sessionReplayId}>
+        <SessionReplayContext.Provider value={{sessionReplayId, setSessionReplayId}}>
           <ConversationModal
             onHideModal={handleHideModal}
-            onCreateComment={onCreateComment}
+            onCreateComment={handleCreateComment}
             comments={comments}
           />
-        </SessionReplayIdContext.Provider>
+        </SessionReplayContext.Provider>
       ) : null}
 
       {state.isRecordingModalVisible ? (

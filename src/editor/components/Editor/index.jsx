@@ -1,5 +1,6 @@
 import React, { useContext, useRef } from "react";
-import { SessionReplayIdContext } from "../../../components/FeedbackInterface";
+import { useParams, useLocation } from "react-router";
+import { SessionReplayContext } from "../../../components/FeedbackInterface";
 import { $getRoot } from "lexical";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
@@ -13,14 +14,17 @@ import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import ImagePlugin from "../../customPlugins/ImagePlugin";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import EditorToolbar from "../EditorToolbar";
-import editorConfig from "./editorConfig";
+import { getEditorConfig } from "./getEditorConfig";
 import { Button } from "@mui/material";
 import CUSTOM_TRANSFORMERS from "../../customPlugins/ImageTransformer";
 import "../../styles/styles.css";
 
 function Editor({ onCreateComment }) {
+  const pathname = useLocation().pathname;
+  const sessionReplayContext = useContext(SessionReplayContext);
+  const replayId = sessionReplayContext.sessionReplayId;
+
   const editorRef = useRef(null);
-  const sessionReplayId = useContext(SessionReplayIdContext);
   
   const handleSubmit = async () => {
     let markdown;
@@ -30,12 +34,19 @@ function Editor({ onCreateComment }) {
     });
 
     await onCreateComment(markdown);
+    sessionReplayContext.setSessionReplayId(null);
     editorRef.current.update(() => $getRoot().clear());
   };
 
+  const generateURL = () => {
+    const USER_DOMAIN = import.meta.env.VITE_USER_DOMAIN;
+    const replayPath = `${pathname}/session-replay/${replayId}`;
+    return `https://feedback-interface.${USER_DOMAIN}/${replayPath}`;
+  }
+
   return (
     <div id="editor-wrapper">
-      <LexicalComposer initialConfig={editorConfig}>
+      <LexicalComposer initialConfig={getEditorConfig(replayId, generateURL())}>
         <div className="editor-container">
           <EditorToolbar />
           <div className="editor-inner">
@@ -59,6 +70,15 @@ function Editor({ onCreateComment }) {
             variant="contained"
             onClick={handleSubmit}
             sx={{
+              bgcolor: `#363f54`,
+              boxShadow: 0,
+              '&:hover': {
+                backgroundColor: '#E2554f',
+                color: '#fff',
+                boxShadow: 0,
+              },
+              fontWeight: 'bold',
+              textTransform: 'lowercase',
               ml: 3.75,
               mt: '10px',
             }}
