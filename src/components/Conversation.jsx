@@ -4,7 +4,7 @@ import Comments from "./Comments";
 function Conversation({ comments, onCreateComment, onHideModal }) {
   return (
     <div id="conversation-container">
-      <i className="fa fa-times-circle closeIcon" onClick={onHideModal}></i>
+      <i className="fa fa-times closeIcon" onClick={onHideModal}></i>
       <Comments comments={comments} />
       <Editor onCreateComment={onCreateComment} />
     </div>
