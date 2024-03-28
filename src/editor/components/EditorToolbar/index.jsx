@@ -14,9 +14,9 @@ const EditorToolbar = () => {
     <Grid
       container
       justifyContent="space-between"
-      spacing={2}
+      spacing={0.01}
       alignItems="center"
-      sx={{ background: "#f5e5ca", py: 1.5, px: 0.5 }}
+      sx={{ background: "#f5e5ca", py: 1.5, px: 3.75 }}
     >
       {toolbarIconsList.map((plugin) => (
         <Grid key={plugin.id} sx={{cursor: "pointer",}} item >

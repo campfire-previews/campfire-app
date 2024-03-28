@@ -7,7 +7,6 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 import ShareIcon from "@mui/icons-material/Share";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ForumIcon from "@mui/icons-material/Forum";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import CelebrationIcon from "@mui/icons-material/Celebration";
 import ConfettiExplosion from "react-confetti-explosion";

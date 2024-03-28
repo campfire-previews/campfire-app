@@ -14,7 +14,6 @@ let events = [];
 
 const initialState = {
   isConversationModalVisible: false,
-  isScreenshotModalVisible: false,
   isRecordingModalVisible: false,
   isNameModalVisible: false,
   userName: "",
@@ -27,15 +26,13 @@ function reducer(state, action) {
       return {
         ...state,
         isConversationModalVisible: true,
-        isScreenshotModalVisible: false,
         isRecordingModalVisible: false,
-        isNameModalVisible: false,
+				isNameModalVisible: false,
       };
     case "display-recording-modal":
       return {
         ...state,
         isConversationModalVisible: false,
-        isScreenshotModalVisible: false,
         isRecordingModalVisible: true,
         isNameModalVisible: false,
       };
@@ -43,12 +40,10 @@ function reducer(state, action) {
       return {
         ...state,
         isConversationModalVisible: false,
-        isScreenshotModalVisible: false,
         isRecordingModalVisible: false,
         isNameModalVisible: false,
       };
     case "toggle-name-modal":
-      console.log("toggle-name-modal");
       return { ...state, isNameModalVisible: !state.isNameModalVisible };
     case "set-user-name":
       return { ...state, userName: action.payload, isNameModalVisible: false };
@@ -68,28 +63,19 @@ function FeedbackInterface({
 }) {
   const [state, dispatchModals] = useReducer(reducer, { ...initialState });
   const [isRecording, setIsRecording] = useState(false);
-  const [RecordingModal, setRecordingModal] = useState(null); // state for dynamically loaded component
+  const [RecordingModal, setRecordingModal] = useState(null);
   const [showAdBlockerMessage, setShowAdBlockerMessage] = useState(false);
   const [sessionReplayId, setSessionReplayId] = useState(null);
   useEffect(() => {
     const userName = localStorage.getItem("userName");
-    console.log("USE EFFECT ", userName);
     if (userName) {
       dispatchModals({ type: "set-user-name", payload: userName });
     } else {
       dispatchModals({ type: "toggle-name-modal" });
     }
 
-    // dynamic import for RecordingModal
     import("./RecordingModal.jsx")
       .then((module) => {
-        console.log("importing RecordingModal...");
-        // dynamically load rrweb-player CSS
-        // const link = document.createElement('link');
-        // link.href = 'rrweb-player/dist/style.css';
-        // link.type = 'text/css';
-        // link.rel = 'stylesheet';
-        // document.head.appendChild(link);
         setRecordingModal(() => module.default);
         dispatchModals({ type: "recording-modal-loaded", payload: true });
       })
@@ -128,8 +114,7 @@ function FeedbackInterface({
           recordCrossOriginIframes: true,
         });
 
-        // Save stop function for later use
-        window.stopRecording = stopFn;
+      window.stopRecording = stopFn;
 
         // the second argument for postMessage is the 'targetOrigin'
         // eventually, the targetOrigin should be "https://CLIENT-APP-PR.preview.CLIENT_DOMAIN"
