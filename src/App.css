@@ -36,6 +36,15 @@ html {
   text-align: left;
 }
 
+.closeIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #b7b7b7;
+}
+
 #conversation-container {
   box-sizing: border-box;
   display: flex;
