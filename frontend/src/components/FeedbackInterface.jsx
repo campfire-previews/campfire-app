@@ -1,4 +1,4 @@
-import { useReducer, useEffect, useState } from "react";
+import { useReducer, useEffect, useState, createContext } from "react";
 import Toolbox from "./Toolbox.jsx";
 import NameModal from "./NameModal.jsx";
 import ConversationModal from "./ConversationModal.jsx";
@@ -9,6 +9,7 @@ import AdBlockerMessage from "./AdBlockerMessage";
 
 const SUBDOMAIN = import.meta.env.VITE_SUBDOMAIN;
 const USER_DOMAIN = import.meta.env.VITE_USER_DOMAIN;
+export const SessionReplayIdContext = createContext();
 let events = [];
 
 const initialState = {
@@ -69,7 +70,7 @@ function FeedbackInterface({
   const [isRecording, setIsRecording] = useState(false);
   const [RecordingModal, setRecordingModal] = useState(null); // state for dynamically loaded component
   const [showAdBlockerMessage, setShowAdBlockerMessage] = useState(false);
-
+  const [sessionReplayId, setSessionReplayId] = useState(null);
   useEffect(() => {
     const userName = localStorage.getItem("userName");
     console.log("USE EFFECT ", userName);
@@ -111,7 +112,7 @@ function FeedbackInterface({
     dispatchModals({ type: "hide-all-modals" });
   };
 
-  const handleStartRecording = (e) => {
+  const handleStartRecording = () => {
     events = [];
     dispatchModals({ type: "hide-all-modals" });
     setIsRecording(true);
@@ -147,17 +148,20 @@ function FeedbackInterface({
       });
   };
 
-  const handleStopRecording = (e) => {
+  const handleStopRecording = () => {
     setIsRecording(false);
     if (window.stopRecording) {
       window.stopRecording();
-      api
-        .saveSessionReplay(repo, issue_number, events)
-        .then((id) => console.log(id));
       dispatchModals({ type: "display-recording-modal" });
     }
   };
 
+  const handleSendRecording = async () => {
+    const id = await api.saveSessionReplay(repo, issue_number, events);
+    setSessionReplayId(id);
+    console.log(id);
+    dispatchModals({ type: "display-conversation-modal" });
+  };
   return (
     <>
       {showAdBlockerMessage && <AdBlockerMessage />}
@@ -188,15 +192,21 @@ function FeedbackInterface({
       )}
 
       {state.isConversationModalVisible ? (
-        <ConversationModal
-          onHideModal={handleHideModal}
-          onCreateComment={onCreateComment}
-          comments={comments}
-        />
+        <SessionReplayIdContext.Provider value={sessionReplayId}>
+          <ConversationModal
+            onHideModal={handleHideModal}
+            onCreateComment={onCreateComment}
+            comments={comments}
+          />
+        </SessionReplayIdContext.Provider>
       ) : null}
 
       {state.isRecordingModalVisible ? (
-        <RecordingModal onHideModal={handleHideModal} events={events} />
+        <RecordingModal
+          onHideModal={handleHideModal}
+          events={events}
+          onSendRecording={handleSendRecording}
+        />
       ) : null}
     </>
   );

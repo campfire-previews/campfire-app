@@ -22,7 +22,7 @@ api.sendComment = async function (repo, issue_number, commentData) {
 // expecting
 api.saveSessionReplay = async function (repo, issue_number, events) {
   const response = await axios.post(
-    baseURL + `/session-replay/${repo}/issue_number/${issue_number}`,
+    baseURL + `/session-replay/repo/${repo}/issue_number/${issue_number}`,
     events,
     { headers: { "Content-Type": "application/json" } }
   );
@@ -32,11 +32,10 @@ api.saveSessionReplay = async function (repo, issue_number, events) {
 // expects event obj saved at the id
 api.getSessionReplay = async function (repo, issue_number, id) {
   const response = await axios.get(
-    baseURL + `/session-replay/${repo}/issue_number/${issue_number}/${id}`
+    baseURL + `/session-replay/repo/${repo}/issue_number/${issue_number}/${id}`
   );
   return response.data;
 };
-
 
 export default api;
 // Code for testing:

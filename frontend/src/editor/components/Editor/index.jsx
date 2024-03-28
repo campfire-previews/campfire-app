@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
+import { SessionReplayIdContext } from "../../../components/FeedbackInterface";
 import { $getRoot } from "lexical";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
@@ -19,13 +20,14 @@ import "../../styles/styles.css";
 
 function Editor({ onCreateComment }) {
   const editorRef = useRef(null);
-
+  const sessionReplayId = useContext(SessionReplayIdContext);
+  
   const handleSubmit = async () => {
     let markdown;
 
     editorRef.current.getEditorState().read(() => {
       markdown = $convertToMarkdownString(CUSTOM_TRANSFORMERS);
-    })
+    });
 
     await onCreateComment(markdown);
     editorRef.current.update(() => $getRoot().clear());
@@ -45,7 +47,7 @@ function Editor({ onCreateComment }) {
                   Chat around the campfire...
                 </div>
               }
-              />
+            />
             <HistoryPlugin />
             <MarkdownShortcutPlugin transformers={CUSTOM_TRANSFORMERS} />
             <EditorRefPlugin editorRef={editorRef} />
@@ -59,7 +61,7 @@ function Editor({ onCreateComment }) {
         </div>
       </LexicalComposer>
     </div>
-  )
+  );
 }
 
-export default Editor
+export default Editor;
