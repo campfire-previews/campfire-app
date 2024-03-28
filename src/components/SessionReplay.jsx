@@ -35,6 +35,7 @@ function SessionReplay({  }) {
 					<button>Visit preview environment</button>
 				</a>	
 			</div>
+		</>
 	)
 }
 

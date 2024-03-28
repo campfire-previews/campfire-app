@@ -52,7 +52,6 @@ html {
 
 .modalContainer {
   position: absolute;
-  background-color: rgb(255, 226, 179);
   width: 70vw;
   height: 60vh;
   z-index: 3;
