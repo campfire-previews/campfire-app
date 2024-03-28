@@ -9,11 +9,11 @@ function AdBlockerMessage() {
       color: 'white',
       fontWeight: 'bold',
       textAlign: 'center',
-      padding: '20px' 
+      padding: '20px',
+      lineHeight: '1.25em',
     }}>
-      Howdy camper!<br></br>
-      We recommend disabling your ad blocker when using this site<br></br>
-      Our app uses the rrweb library, which may cause our app to blocked by ad blocker extensions<br></br>
+      Howdy camper! We recommend disabling your ad blocker when using this site<br></br>
+      Certain features of our app may not load when an ad blocker is enabled<br></br>
     </div>
   );
 }
