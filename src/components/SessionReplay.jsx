@@ -3,11 +3,9 @@ import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router";
 
 import * as rrweb from "rrweb";
-import rrwebPlayer from 'rrweb-player';
-import 'rrweb-player/dist/style.css';
+import rrwebPlayer from "rrweb-player";
+import "rrweb-player/dist/style.css";
 
-
-// 8bfd3309-4af1-4abf-8067-8468394a2d42
 function SessionReplay({  }) {
 	const { repo, issue_number, id } = useParams();
 	const playerRef = useRef(null);
