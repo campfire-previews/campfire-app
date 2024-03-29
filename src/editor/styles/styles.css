@@ -44,7 +44,7 @@ body {
 .other ul {
   padding: 0;
   margin: 0;
-  list-style-type: none;
+  list-style-type: circle;
 }
 
 .App {
@@ -274,6 +274,7 @@ h1 {
 
 .editor-listitem {
   margin: 8px 32px 8px 32px;
+  list-style-type: disc;
 }
 
 .editor-nested-listitem {
