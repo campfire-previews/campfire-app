@@ -23,6 +23,13 @@ function SessionReplay({  }) {
 				});
 				replayer.play();
 			}
+
+			let rr_player = Array.from(document.getElementsByClassName('rr-player'));
+    	let player__frame = Array.from(document.getElementsByClassName('rr-player__frame'));
+    	player__frame[0].style.width = "75vw";
+			player__frame[0].style.height = "50vh";
+			rr_player[0].style.width = "75vw"
+			rr_player[0].style.height = "50vh"
 		})()
 	}, []);
 
