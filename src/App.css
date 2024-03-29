@@ -108,7 +108,6 @@ html {
 
 .modalContainer {
   position: absolute;
-  background-color: rgb(255, 226, 179);
   width: 70vw;
   height: 60vh;
   z-index: 3;
@@ -312,6 +311,11 @@ html {
   align-items: center;
 }
 
-#playerContainer > a > button {
-  padding: 10px 20px;
+#playerContainer > a > button,
+#send-recording {
+	position: absolute;
+	bottom: -150px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 10px 20px;
 }
