@@ -8,18 +8,16 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 function App() {
   const [loadingError, setLoadingError] = useState(false);
 
-  // Dynamic import for SessionReplay component
+  // dynamic import for SessionReplay component
   const SessionReplay = React.lazy(() =>
     import("./components/SessionReplay.jsx").catch((error) => {
-      // console.error("Failed to load SessionReplay:", error);
       setLoadingError(true);
     })
   );
 
   useEffect(() => {
-    // Dynamic import for rrweb (if it's used directly in App, otherwise import it where it's used)
+    // dynamic import for rrweb
     import("rrweb").catch((error) => {
-      // console.error("Failed to load rrweb:", error);
       setLoadingError(true);
     });
   }, []);
