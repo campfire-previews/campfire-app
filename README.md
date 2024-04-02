@@ -1,3 +1,5 @@
+![alt](https://github.com/campfire-previews/campfire-app/blob/update-readme/src/assets/campfire.svg?raw=true)
+
 <h1 align="center">Campfire: open-source, self-hosted deploy previews for containerized, headless frontends</h1>
 <h2 align="center">All you need is a GitHub repo and an AWS account and to get up and running</h2>
 
