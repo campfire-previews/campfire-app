@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/campfire-previews/campfire-app/blob/update-readme/src/assets/campfire.svg" width="500" height="auto" />
+  <img src="https://github.com/campfire-previews/campfire-app/blob/main/src/assets/campfire.svg" width="500" height="auto" />
 </p>
 
 <h1 align="center">Campfire: open-source, self-hosted deploy previews for containerized, headless frontends</h1>
