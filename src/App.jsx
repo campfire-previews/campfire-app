@@ -32,7 +32,7 @@ function App() {
         <Routes>
           <Route path="/:repo/:issue_number" element={<PreviewEnvironment />} />
           <Route
-            path="/:repo/:issue_number/session-replay/:id"
+            path="/:repo/:issue_number/session_replay/:id"
             element={
               <Suspense fallback={<div>Loading Session Replay...</div>}>
                 <SessionReplay />
