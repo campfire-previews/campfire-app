@@ -11,7 +11,7 @@ COPY . .
 RUN npm install
 
 # expose port for container
-EXPOSE 5173
+EXPOSE 8080
 
 # run the app
 CMD ["npm", "start"]
