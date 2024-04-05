@@ -1,6 +1,6 @@
 import axios from "axios";
 const api = {};
-const baseURL = "https://r5mggbu5q0.execute-api.us-east-2.amazonaws.com/demo";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 api.getComments = async function (repo, issue_number) {
   const response = await axios.get(
@@ -22,7 +22,7 @@ api.sendComment = async function (repo, issue_number, commentData) {
 // expecting
 api.saveSessionReplay = async function (repo, issue_number, events) {
   const response = await axios.post(
-    baseURL + `/repos/${repo}/issue_number/${issue_number}/session-replay`,
+    baseURL + `/repos/${repo}/issue_number/${issue_number}/session_replay`,
     { body: events },
     { headers: { "Content-Type": "application/json" } }
   );
@@ -32,7 +32,7 @@ api.saveSessionReplay = async function (repo, issue_number, events) {
 // expects event obj saved at the id
 api.getSessionReplay = async function (repo, issue_number, id) {
   const response = await axios.get(
-    baseURL + `/repos/${repo}/issue_number/${issue_number}/session-replay/${id}`
+    baseURL + `/repos/${repo}/issue_number/${issue_number}/session_replay/${id}`
   );
   return response.data.data;
 };
