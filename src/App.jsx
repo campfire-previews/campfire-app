@@ -1,14 +1,15 @@
 import React, { useState, useEffect, Suspense } from "react";
 import "./App.css";
+import { isMobile, isTablet } from "react-device-detect";
 import NotFound from "./components/NotFound.jsx";
 import PreviewEnvironment from "./components/PreviewEnvironment.jsx";
 import AdBlockerMessage from "./components/AdBlockerMessage.jsx";
+import MobileBanner from "./components/MobileBanner.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   const [loadingError, setLoadingError] = useState(false);
 
-  // dynamic import for SessionReplay component
   const SessionReplay = React.lazy(() =>
     import("./components/SessionReplay.jsx").catch((error) => {
       setLoadingError(true);
@@ -16,8 +17,8 @@ function App() {
   );
 
   useEffect(() => {
-    // dynamic import for rrweb
     import("rrweb").catch((error) => {
+      console.error('Failed to load rrweb:', error);
       setLoadingError(true);
     });
   }, []);
@@ -42,6 +43,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
+      {(isMobile || isTablet) && <MobileBanner />}
     </div>
   );
 }
