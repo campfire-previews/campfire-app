@@ -24,12 +24,12 @@ html {
   top: 0;
   left: 0;
   right: 0;
-  background-color: "#F36464";
-  color: "white";
-  font-weight: "bold";
-  text-align: "center";
-  padding: "20px";
-  line-height: "1.25em";
+  background-color: #F36464;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+  line-height: 1.25em;
 }
 
 /* COMMENTS */
@@ -167,15 +167,15 @@ html {
 
 /* MOBILE BANNDER */
 #MobileBanner {
-  position: "absolute";
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  background-color: "#007bff";
-  color: "white";
-  font-weight: "bold";
-  text-align: "center";
-  padding: "20px";
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
 }
 
 /* NAME BANNER */
