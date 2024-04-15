@@ -19,6 +19,11 @@
  *
  */
 
+/* this is to fix the comments toolbar layout */
+.css-1u168q3-MuiGrid-root {
+  margin-left: 0 !important;
+}
+
 body {
   margin: 0;
   background: #eee;
