@@ -85,6 +85,12 @@ const pluginsList = [
     iconSx,
   },
   {
+    id: 10,
+    Icon: ImageIcon,
+    event: eventTypes.insertImage,
+    iconSx,
+  },
+  {
     id: 11,
     Icon: InsertLinkOutlinedIcon,
     event: eventTypes.formatInsertLink,
