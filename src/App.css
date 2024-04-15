@@ -54,6 +54,20 @@ html {
   min-width: 620px;
 }
 
+/* handle mobile phones */
+@media (max-width: 480px) {
+  #Conversation {
+    max-width: 100vw; /* allow modal to take full width on very small screens */
+    min-width: 85%;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 0;
+  }
+}
+
 .closeIcon {
   z-index: 1;
   position: absolute;
