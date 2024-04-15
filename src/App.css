@@ -49,9 +49,12 @@ html {
   position: absolute;
   z-index: 3;
   height: 70vh;
-  max-width: 70vw;
+  width: 70vw;
   min-height: 373.767px;
+  max-width: 70vw;
+  min-width: 70vw;
   min-width: 620px;
+  max-width: 620px;
 }
 
 /* handle mobile phones */
