@@ -60,13 +60,13 @@ html {
 /* conversation media query for mobile */
 @media (max-width: 767px) {
   #Conversation {
-    width: 90vw;
+    width: 100vw;
     min-width: initial;
     max-width: initial;
-    top: 10vh;
-    left: 5vw;
-    right: 5vw;
-    margin-top: 0;
+    top: 12vh;
+    left: 0;
+    right: 0;
+    margin-top: 5px;
     height: 80vh;
   }
 }
@@ -90,7 +90,9 @@ html {
 /* closeIcon media query for mobile devices */
 @media (max-width: 767px) {
   .closeIcon {
+    /* position: relative; */
     right: -1.5px;
+    top: -30px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     border-top-right-radius: 0;
