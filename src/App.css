@@ -74,8 +74,8 @@ html {
 .closeIcon {
   z-index: 1;
   position: absolute;
-  top: 10px;
-  right: -24px;
+  top: -2px;
+  right: -27px;
   cursor: pointer;
   font-size: 16px;
   color: #fff;
