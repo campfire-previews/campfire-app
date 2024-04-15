@@ -57,7 +57,7 @@ html {
   max-width: 620px;
 }
 
-/* media query for mobile devices */
+/* conversation media query for mobile */
 @media (max-width: 767px) {
   #Conversation {
     width: 90vw;
@@ -85,6 +85,17 @@ html {
   padding-left: 10px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+
+/* closeIcon media query for mobile devices */
+@media (max-width: 767px) {
+  .closeIcon {
+    right: -1.5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 }
 
 /* Material UI styles are in the Comments component */
