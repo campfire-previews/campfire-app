@@ -1,6 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useParams } from "react-router";
-import api from "../apiClient.js";
 import Preview from "./Preview.jsx";
 import FeedbackInterface from "./FeedbackInterface.jsx";
 
@@ -11,7 +10,10 @@ function PreviewEnvironment() {
   return (
     <>
       <Preview repo={repo} issue_number={issue_number} iFrameRef={iFrameRef} />
-      <FeedbackInterface repo={repo} issue_number={issue_number} iFrameRef={iFrameRef}
+      <FeedbackInterface
+        repo={repo}
+        issue_number={issue_number}
+        iFrameRef={iFrameRef}
       />
     </>
   );

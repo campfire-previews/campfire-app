@@ -26,6 +26,7 @@ api.saveSessionReplay = async function (repo, issue_number, events) {
     { body: events },
     { headers: { "Content-Type": "application/json" } }
   );
+  console.log(response);
   return response.data.id;
 };
 

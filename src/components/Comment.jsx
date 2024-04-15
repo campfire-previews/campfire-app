@@ -9,7 +9,7 @@ import TagFacesIcon from "@mui/icons-material/TagFaces";
 function CommentHeader({ user, createdAt }) {
   return (
     <Stack
-      className="comment-header"
+      className="CommentHeader"
       direction="row"
       spacing={2}
       alignItems="center"
@@ -24,14 +24,14 @@ function CommentHeader({ user, createdAt }) {
 
 function CommentBody({ body }) {
   return (
-    <div className="comment-body">
+    <div className="CommentBody">
       <Markdown remarkPlugins={[remarkGfm]}>{body}</Markdown>
     </div>
   );
 }
 function Comment({ comment }) {
   return (
-    <div className="comment">
+    <div className="Comment">
       <CommentHeader user={comment.user} createdAt={comment.created_at} />
       <CommentBody body={comment.body} />
     </div>

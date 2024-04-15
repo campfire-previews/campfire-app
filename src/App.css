@@ -1,79 +1,41 @@
+:root {
+  --campfire-blue: #363f54;
+  --campfire-dark-blue: #272f3f;
+  --campfire-red: #e2554f;
+  --campfire-dark-red: #e3413a;
+  --campfire-off-white: #f2f1ea;
+  --campfire-gradient: linear-gradient(
+    159deg,
+    rgba(39, 47, 63, 1) 0%,
+    rgba(47, 56, 75, 1) 21%,
+    rgba(226, 85, 79, 1) 63%,
+    rgba(237, 107, 44, 1) 85%,
+    rgba(237, 152, 55, 1) 100%
+  );
+}
+
 html {
   padding: none;
 }
 
-.comment {
-  border: 1px solid gray;
+/* AD BLOCKER MESSAGE */
+#AdBlockerMessage {
+  position: "absolute";
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: "#F36464";
+  color: "white";
+  font-weight: "bold";
+  text-align: "center";
+  padding: "20px";
+  line-height: "1.25em";
 }
 
-.comment-header,
-.comment-body,
-.comment-reactions {
-  padding: 10px;
-}
-.comment-header {
-  background-color: rgb(228, 228, 228);
-}
+/* COMMENTS */
 
-.comment-body {
-  overflow-wrap: break-word;
-}
-
-.NotFound {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #272f3f;
-  color: white;
-  height: 100vh;
-  font-family: Futura, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  h1 {
-    color: white;
-    font-size: 3.2em;
-    margin: 20px;
-    margin-bottom: 0px;
-  }
-
-  p {
-    margin-top: 0;
-  }
-}
-
-.comment-body img {
-  display: block;
-  max-width: 100%;
-  max-height: 100%;
-  width: 100%;
-  height: auto;
-  margin: 10px 0;
-}
-
-.comment-body table {
-  margin-top: 15px;
-}
-
-.comment-body th {
-  text-align: left;
-}
-
-.closeIcon {
-  position: absolute;
-  top: -1px;
-  right: -27px;
-  cursor: pointer;
-  font-size: 24px;
-  color: #fff;
-  background-color: #E2554F;
-  padding: 5px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-#conversation-container {
+/* Wraps Comments and Editor */
+#Conversation {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -85,53 +47,89 @@ html {
   font-family: sans-serif;
   margin-top: 10vh;
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   height: 70vh;
   max-width: 70vw;
   min-height: 373.767px;
   min-width: 620px;
-  /* padding: 10px; */
-  /* overflow-y: scroll; */
 }
 
-#comments-container {
+.closeIcon {
+  z-index: 1;
+  position: absolute;
+  top: 10px;
+  right: -24px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  background-color: var(--campfire-red);
+  background: var(--campfire-gradient);
+  padding: 7px;
+  padding-left: 10px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+/* Material UI styles are in the Comments component */
+#Comments {
   flex-grow: 3;
   overflow-y: scroll;
   padding: 30px;
+  z-index: 2;
 }
 
-#client-app {
-  width: 100%;
-  height: 100vh;
-  position: fixed;
-  border: none;
+/* Material UI styles are in the Comment component */
+.Comment {
+  border: 1px solid gray;
 }
 
-.modalContainer {
-  position: absolute;
-  width: 70vw;
-  height: 60vh;
-  z-index: 3;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.CommentHeader,
+.CommentBody {
+  padding: 10px;
 }
 
-#recording-modal #send-recording {
-  padding: 20px;
-}
-#player {
-  display: flex;
+.CommentBody {
+  overflow-wrap: break-word;
+
+  img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: auto;
+    margin: 10px 0;
+  }
+
+  td,
+  table {
+    border: 1px solid gray;
+  }
+
+  td,
+  th {
+    padding: 5px;
+  }
+
+  th {
+    background-color: rgb(243, 243, 243);
+  }
+
+  table {
+    margin-top: 15px;
+    border-collapse: collapse;
+  }
+
+  tr {
+    padding: 10px;
+  }
 }
 
-#editor-wrapper {
-  flex: 1;
-  /* height: 20px; */
+.CommentHeader {
+  background-color: rgb(228, 228, 228);
 }
+
+/* MODAL OVERLAY used by:
+- ConversationModal */
 
 .modalOverlay {
   position: absolute;
@@ -139,49 +137,15 @@ html {
   height: 100vh;
   left: 0;
   top: 0;
-  background-color: rgba(255, 255, 255, 0);
+  background-color: rgba(36, 46, 92, 0.2);
   z-index: 1;
 }
 
-#recordingModalHeader {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-#recordingModalButtons {
-  display: flex;
-}
-
-#recordingInterface {
-  background-color: #007bff;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 4;
-  margin-top: 10px;
-  padding: 10px 20px;
-  border-radius: 10px 0 0 10px;
-}
-
-#recordingInterface > div {
-  display: flex;
-  align-items: center;
-}
-
-#recordingInterface > button {
-  color: white;
-  background-color: transparent;
-  border: none;
-  font-size: 15px;
-  padding: 0;
-}
-
+/* DOT */
 #dot {
-  width: 20px;
-  height: 20px;
-  background-color: rgb(211, 0, 0);
+  width: 15px;
+  height: 15px;
+  background-color: white;
   border-radius: 50%;
   margin-left: 10px;
 }
@@ -194,69 +158,31 @@ html {
   visibility: hidden;
 }
 
-.name-modal-overlay {
-  position: fixed;
+/* FEEDBACK INTERFACE */
+#NameRecordingWrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* MOBILE BANNDER */
+#MobileBanner {
+  position: "absolute";
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: "#007bff";
+  color: "white";
+  font-weight: "bold";
+  text-align: "center";
+  padding: "20px";
 }
 
-#name-modal-content {
-  background-color: rgb(255, 226, 179);
-  padding: 30px;
-  width: 50%;
-  max-width: 600px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#name-modal-content h1 {
-  font-size: 28px;
-  color: #333;
-}
-
-#name-modal-content h2 {
-  font-size: 18px;
-  margin-top: 0;
-  color: #333;
-}
-
-#name-modal-content input {
-  width: 80%;
-  padding: 10px;
-  margin: 20px 0;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-#name-modal-content button {
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-}
-
-#name-modal-content button:hover {
-  background-color: #0056b3;
-}
-
-.name-modal-error-message {
-  color: red;
-  padding-bottom: 10px;
-}
-
-.name-banner {
-  background-color: #007bff;
+/* NAME BANNER */
+.NameBanner {
+  /* background-color: #007bff; */
+  background-color: rgb(39, 47, 63);
+  background: var(--campfire-gradient);
   color: white;
   padding: 10px 20px;
   border-radius: 10px 0 0 10px;
@@ -264,6 +190,7 @@ html {
   display: flex;
   align-items: center;
   cursor: pointer;
+  box-shadow: 1px 5px 5px #272f3f41;
 }
 
 .name-banner-collapse-toggle-button {
@@ -288,7 +215,11 @@ html {
   border: none;
   color: white;
   cursor: pointer;
-  padding-left: 10px;
+  display: inline;
+  font-size: 1rem;
+  border-bottom: 1px solid white;
+  padding: 0;
+  margin-left: 5px;
 }
 
 .name-banner-edit-button:hover,
@@ -296,27 +227,196 @@ html {
   color: #cccccc;
 }
 
-#miscOverlay {
-  position: absolute;
+/* NAME MODAL */
+.name-modal-overlay {
+  position: fixed;
   top: 0;
+  left: 0;
   right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#playerContainer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+#name-modal-content {
+  background-color: #f2f1ea;
+  padding: 50px;
+  width: 50%;
+  max-width: 600px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--campfire-dark-blue);
+  }
+
+  form h2 {
+    font-size: 0.9rem;
+  }
+
+  input {
+    width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  button {
+    padding: 15px 25px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--campfire-red);
+    color: white;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: var(--campfire-dark-red);
+  }
+}
+
+.name-modal-error-message {
+  color: var(--campfire-red);
+}
+
+/* 404 NOT FOUND PAGE */
+.NotFound {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--campfire-dark-blue);
+  color: white;
+  height: 100vh;
+  font-family: Futura, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  h1 {
+    color: white;
+    font-size: 3.2em;
+    margin: 20px;
+    margin-bottom: 0px;
+  }
+
+  p {
+    margin-top: 0;
+  }
 }
 
-#playerContainer > a > button,
+/* IFRAME */
+#Preview {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  border: none;
+}
+
+/* RECORDING INTERFACE */
+#RecordingInterface {
+  background-color: rgb(39, 47, 63);
+  background: var(--campfire-gradient);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 4;
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 10px 0 0 10px;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+
+  button {
+    color: white;
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+    padding: 0;
+  }
+}
+
+/* RECORDING MODAL */
+
+.rr-player {
+  width: 100% !important;
+  padding-top: 20px;
+}
+.rr-player__frame {
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+
+#RecordingModalWrapper {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#RecordingModal {
+  z-index: 5;
+  width: 70vw;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 #send-recording {
-	position: absolute;
-	bottom: -150px;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	padding: 10px 20px;
+  background-color: var(--campfire-dark-blue);
+  border: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+#send-recording:hover {
+  background: var(--campfire-gradient);
+  cursor: pointer;
+}
+
+/* SESSION REPLAY MODAL */
+#SessionReplay {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  width: 100vw;
+
+  #playerMain {
+    margin: 30px;
+  }
+  a button {
+    background-color: var(--campfire-dark-blue);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  a button:hover {
+    background: var(--campfire-gradient);
+    cursor: pointer;
+  }
 }

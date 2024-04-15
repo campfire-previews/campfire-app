@@ -3,7 +3,7 @@ import Comments from "./Comments";
 
 function Conversation({ comments, onCreateComment, onHideModal }) {
   return (
-    <div id="conversation-container">
+    <div id="Conversation">
       <i className="fa fa-times closeIcon" onClick={onHideModal}></i>
       <Comments comments={comments} />
       <Editor onCreateComment={onCreateComment} />

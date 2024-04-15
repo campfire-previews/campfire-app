@@ -1,49 +1,46 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import { useParams } from "react-router";
-
-import * as rrweb from "rrweb";
 import rrwebPlayer from "rrweb-player";
 import "rrweb-player/dist/style.css";
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+import api from "../apiClient";
 
+function SessionReplay({}) {
+  const { repo, issue_number, id } = useParams();
+  const playerRef = useRef(null);
 
-function SessionReplay({  }) {
-	const { repo, issue_number, id } = useParams();
-	const playerRef = useRef(null);
+  useEffect(() => {
+    (async () => {
+      const events = await api.getSessionReplay(repo, issue_number, id);
+      if (events.length > 0) {
+        const replayer = new rrwebPlayer({
+          target: playerRef.current,
+          props: { events },
+        });
+        replayer.play();
+      }
+      console.log(events);
+    })();
+  }, []);
 
-	useEffect(() => {
-		(async () => {
-			const response = await fetch(`${BASE_URL}/repos/${repo}/issue_number/${issue_number}/session_replay/${id}`)
-			const { data: events } = await response.json();
-			if (events.length > 0) {
-				const replayer = new rrwebPlayer({
-					target: playerRef.current,
-					props: { events }
-				});
-				replayer.play();
-			}
+  // <div id="RecordingModalWrapper">
+  //     <div id="RecordingModal">
+  //       <div id="player" ref={playerRef}></div>
+  //       <button id="send-recording" onClick={() => onSendRecording()}>
+  //         send in comment
+  //       </button>
+  //     </div>
+  //     <div className="modalOverlay" onClick={onModalOverlayClick}></div>
+  //   </div>
 
-			let rr_player = Array.from(document.getElementsByClassName('rr-player'));
-    	let player__frame = Array.from(document.getElementsByClassName('rr-player__frame'));
-    	player__frame[0].style.width = "75vw";
-			player__frame[0].style.height = "50vh";
-			rr_player[0].style.width = "75vw"
-			rr_player[0].style.height = "50vh"
-		})()
-	}, []);
-
-
-	return (
-		<>
-			<div id="playerContainer">
-				<div id="playerMain" ref={playerRef}></div>
-				<a href={`${location.origin}/${repo}/${issue_number}`}>
-					<button>Visit preview environment</button>
-				</a>	
-			</div>
-		</>
-	)
+  return (
+    <div id="SessionReplay">
+      <div id="playerMain" ref={playerRef}></div>
+      <a href={`${location.origin}/${repo}/${issue_number}`}>
+        <button>Visit preview environment</button>
+      </a>
+    </div>
+  );
 }
 
 export default SessionReplay;

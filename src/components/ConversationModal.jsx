@@ -5,7 +5,11 @@ function ConversationModal({ onHideModal, comments, onCreateComment }) {
   return (
     <>
       <Container maxWidth="sm">
-        <Conversation comments={comments} onCreateComment={onCreateComment} onHideModal={onHideModal} />
+        <Conversation
+          comments={comments}
+          onCreateComment={onCreateComment}
+          onHideModal={onHideModal}
+        />
       </Container>
       <div className="modalOverlay"></div>
     </>
