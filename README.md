@@ -2,8 +2,7 @@
   <img src="https://github.com/campfire-previews/campfire-app/blob/main/src/assets/campfire.svg" width="500" height="auto" />
 </p>
 
-<h1 align="center">Campfire: open-source, self-hosted deploy previews for containerized, headless frontends</h1>
-<h2 align="center">All you need is a GitHub repo and an AWS account and to get up and running</h2>
+<h1 align="center">Campfire: An open-source, self-hosted deploy preview tool with integrated feedback for containerized, headless frontends.</h1>
 
 Much like how an actual campfire brings people together to trade stories, Campfire aims to be a central place for cross-functional teams to visually review and discuss proposed code changes or bug fixes early in the software development cycle.
 
