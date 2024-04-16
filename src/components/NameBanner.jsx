@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const NameBanner = ({ userName, onClick }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -9,18 +9,21 @@ const NameBanner = ({ userName, onClick }) => {
   };
 
   return (
-    <div className={`name-banner ${isCollapsed ? 'name-banner-collapsed' : ''}`}>
-      <button className="name-banner-collapse-toggle-button" onClick={handleToggleCollapse}>
-        <i className={`fas ${isCollapsed ? 'fa-angle-left' : 'fa-angle-right'}`}></i>
+    <div className={`NameBanner ${isCollapsed ? "name-banner-collapsed" : ""}`}>
+      <button
+        className="name-banner-collapse-toggle-button"
+        onClick={handleToggleCollapse}
+      >
+        <i
+          className={`fas ${isCollapsed ? "fa-angle-left" : "fa-angle-right"}`}
+        ></i>
       </button>
-      <span className={isCollapsed ? 'name-banner-hidden' : ''}>
-        visiting campfire as {userName}
-      </span>
-      {!isCollapsed && (
+      <span className={isCollapsed ? "name-banner-hidden" : ""}>
+        visiting campfire as
         <button className="name-banner-edit-button" onClick={onClick}>
-          <i className="fas fa-pencil-alt"></i>
+          {userName}
         </button>
-      )}
+      </span>
     </div>
   );
 };

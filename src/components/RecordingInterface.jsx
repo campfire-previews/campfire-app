@@ -13,7 +13,7 @@ function RecordingInterface({ handleStopRecording }) {
 	}, [isDotVisible]);
 
   return (
-    <div id="recordingInterface">
+    <div id="RecordingInterface">
 			<div>
 				<p>Recording...</p>
 				<Dot isDotVisible={isDotVisible}/>

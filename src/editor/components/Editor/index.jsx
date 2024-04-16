@@ -25,7 +25,7 @@ function Editor({ onCreateComment }) {
   const replayId = sessionReplayContext.sessionReplayId;
 
   const editorRef = useRef(null);
-  
+
   const handleSubmit = async () => {
     let markdown;
 
@@ -72,15 +72,15 @@ function Editor({ onCreateComment }) {
             sx={{
               bgcolor: `#363f54`,
               boxShadow: 0,
-              '&:hover': {
-                backgroundColor: '#E2554f',
-                color: '#fff',
+              "&:hover": {
+                backgroundColor: "#E2554f",
+                color: "#fff",
                 boxShadow: 0,
               },
-              fontWeight: 'bold',
-              textTransform: 'lowercase',
+              fontWeight: "bold",
+              textTransform: "lowercase",
               ml: 3.75,
-              mt: '10px',
+              mt: "10px",
             }}
           >
             Submit

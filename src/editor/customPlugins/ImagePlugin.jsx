@@ -165,12 +165,6 @@ export function InsertImageDialog({ activeEditor, onClose }) {
           >
             URL
           </Button>
-          <Button
-            data-test-id="image-modal-option-file"
-            onClick={() => setMode("file")}
-          >
-            File
-          </Button>
         </Box>
       )}
       {mode === "url" && <InsertImageUriDialogBody onClick={onClick} />}

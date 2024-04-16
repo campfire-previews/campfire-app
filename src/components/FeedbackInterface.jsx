@@ -56,18 +56,13 @@ function reducer(state, action) {
   }
 }
 
-function FeedbackInterface({
-  repo,
-  issue_number,
-  iFrameRef,
-}) {
+function FeedbackInterface({ repo, issue_number, iFrameRef }) {
   const [state, dispatchModals] = useReducer(reducer, { ...initialState });
   const [isRecording, setIsRecording] = useState(false);
   const [RecordingModal, setRecordingModal] = useState(null);
   const [showAdBlockerMessage, setShowAdBlockerMessage] = useState(false);
   const [sessionReplayId, setSessionReplayId] = useState(null);
   const [comments, setComments] = useState([]);
-
 
   useEffect(() => {
     getUserData();
@@ -143,14 +138,14 @@ function FeedbackInterface({
         // the second argument for postMessage is the 'targetOrigin'
         // eventually, the targetOrigin should be "https://CLIENT-APP-PR.preview.CLIENT_DOMAIN"
         const URL_PATHNAME = window.location.pathname;
-        // iFrameRef.current.contentWindow.postMessage(
-        //   URL_PATHNAME,
-        //   "http://localhost:5174"
-        // );
         iFrameRef.current.contentWindow.postMessage(
           URL_PATHNAME,
-          `https://${repo}-${issue_number}.${SUBDOMAIN}.${USER_DOMAIN}`
+          "http://localhost:5173"
         );
+        // iFrameRef.current.contentWindow.postMessage(
+        //   URL_PATHNAME,
+        //   `https://${repo}-${issue_number}.${SUBDOMAIN}.${USER_DOMAIN}`
+        // );
       })
       .catch((error) => {
         console.error("Failed to load rrweb:", error);
@@ -174,7 +169,7 @@ function FeedbackInterface({
   return (
     <>
       {showAdBlockerMessage && <AdBlockerMessage />}
-      <div id="miscOverlay">
+      <div id="NameRecordingWrapper">
         {state.userName ? (
           <NameBanner userName={state.userName} onClick={toggleModal} />
         ) : null}
@@ -201,7 +196,9 @@ function FeedbackInterface({
       )}
 
       {state.isConversationModalVisible ? (
-        <SessionReplayContext.Provider value={{sessionReplayId, setSessionReplayId}}>
+        <SessionReplayContext.Provider
+          value={{ sessionReplayId, setSessionReplayId }}
+        >
           <ConversationModal
             onHideModal={handleHideModal}
             onCreateComment={handleCreateComment}
