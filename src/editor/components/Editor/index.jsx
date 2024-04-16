@@ -40,11 +40,9 @@ function Editor({ onCreateComment }) {
 
   const generateURL = () => {
     const USER_DOMAIN = import.meta.env.VITE_USER_DOMAIN;
-    // const BASE = `https://feedback-interface.${USER_DOMAIN}`;
-    const BASE = `http://localhost:8080`;
-    const replayPath = `${pathname}/session-replay/${replayId}`;
-    return `${BASE}${replayPath}`;
-  };
+    const replayPath = `${pathname}/session_replay/${replayId}`;
+    return `https://campfire.${USER_DOMAIN}${replayPath}`;
+  }
 
   return (
     <div id="editor-wrapper">
