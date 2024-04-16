@@ -14,13 +14,13 @@ Campfire integrates a feedback interface directly into each deploy preview, allo
 - **Session Replay** - Captures user interactions within the deploy preview to aid in debugging and understanding user experiences.
 
 ## System Requirements
-Campfire supports front-end applications meeting the following criteria:
+Campfire supports front-end applications that meet the following criteria:
 - Hosted on GitHub.
 - Include a Dockerfile.
 - Operate independently of a backend or interact with an external backend via APIs.
 
 ## Architecture
-Campfire leverages several technologies to provide a robust service:
+Campfire leverages several technologies:
 - **GitHub Actions** - Automates the deployment of deploy previews.
 - **AWS ECS** - Hosts the deploy previews in a scalable, containerized environment.
 - **AWS Lambda** - Manages backend functionalities including GitHub API interactions and AWS services, reducing server management overhead.
@@ -46,6 +46,6 @@ Campfire is released under the [MIT License](LICENSE.txt).
 
 [Rachele Lang](#) • Software Engineer • Denver, CO
 
-[Tess Lockey](#) • Software Engineer • Las Vegas, NJ
+[Tess Lockey](#) • Software Engineer • Las Vegas, NV
 
 [Weston Ludeke](#) • Software Engineer • Houston, TX
