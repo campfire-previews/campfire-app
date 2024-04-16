@@ -14,8 +14,8 @@ Campfire integrates a feedback interface directly into each deploy preview, allo
 - **Session Replay** - Captures user interactions within the deploy preview to aid in debugging and understanding user experiences.
 
 ## System Requirements
-Campfire is designed for front-end applications that:
-- Are hosted on GitHub.
+Campfire supports front-end applications meeting the following criteria:
+- Hosted on GitHub.
 - Include a Dockerfile.
 - Operate independently of a backend or interact with an external backend via APIs.
 
