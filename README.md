@@ -32,10 +32,10 @@ To start using Campfire, follow the setup instructions in our [installation guid
 You can also view a [demo version of Campfire here](#).
 
 ## Future Enhancements
-- **CSS Editor** - Allows users to suggest and apply CSS changes directly within the deploy preview.
-- **Screenshot Functionality** - Enables capturing specific moments within the deploy preview for easy sharing and documentation.
-- **GitHub User Authorization** - Streamlines user identification by linking comments directly to GitHub accounts.
-- **Cost Optimization** - Investigating methods to merge the feedback interface with the client app to reduce operational costs.
+- **CSS Editor** - Allow users to suggest and apply CSS changes directly within the deploy preview.
+- **Screenshot Functionality** - Enable capturing specific moments within the deploy preview for easy sharing and documentation.
+- **GitHub User Authorization** - Streamline user identification by linking comments directly to GitHub accounts.
+- **Cost Optimization** - Investigate methods to merge the feedback interface with the client app to reduce operational costs.
 
 ## License
 Campfire is released under the [MIT License](LICENSE.txt).
