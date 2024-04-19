@@ -140,12 +140,8 @@ function FeedbackInterface({ repo, issue_number, iFrameRef }) {
         const URL_PATHNAME = window.location.pathname;
         iFrameRef.current.contentWindow.postMessage(
           URL_PATHNAME,
-          "http://localhost:5173"
+          `https://${repo}-${issue_number}.${SUBDOMAIN}.${USER_DOMAIN}`
         );
-        // iFrameRef.current.contentWindow.postMessage(
-        //   URL_PATHNAME,
-        //   `https://${repo}-${issue_number}.${SUBDOMAIN}.${USER_DOMAIN}`
-        // );
       })
       .catch((error) => {
         console.error("Failed to load rrweb:", error);
