@@ -6,6 +6,7 @@ import api from "../apiClient.js";
 import RecordingInterface from "./RecordingInterface.jsx";
 import NameBanner from "./NameBanner.jsx";
 import AdBlockerMessage from "./AdBlockerMessage.jsx";
+import Error from "./Error.jsx";
 import getUserData from "../utils/getUserData.js";
 import removeBotComments from "../utils/removeBotComments.js";
 
@@ -61,6 +62,7 @@ function FeedbackInterface({ repo, issue_number, iFrameRef }) {
   const [isRecording, setIsRecording] = useState(false);
   const [RecordingModal, setRecordingModal] = useState(null);
   const [showAdBlockerMessage, setShowAdBlockerMessage] = useState(false);
+  const [showError, setError] = useState(false);
   const [sessionReplayId, setSessionReplayId] = useState(null);
   const [comments, setComments] = useState([]);
 
@@ -151,20 +153,30 @@ function FeedbackInterface({ repo, issue_number, iFrameRef }) {
   const handleStopRecording = () => {
     setIsRecording(false);
     if (window.stopRecording) {
-      window.stopRecording();
-      dispatchModals({ type: "display-recording-modal" });
+      try {
+        window.stopRecording();
+        dispatchModals({ type: "display-recording-modal" });
+      } catch (error) {
+        handleError();
+      }
     }
   };
 
   const handleSendRecording = async () => {
     const id = await api.saveSessionReplay(repo, issue_number, events);
     setSessionReplayId(id);
-    console.log(id);
     dispatchModals({ type: "display-conversation-modal" });
   };
+
+  const handleError = () => {
+    setError(() => true);
+    setTimeout(() => setError(() => false), 5000);
+  }
+
   return (
     <>
       {showAdBlockerMessage && <AdBlockerMessage />}
+      {showError && <Error />}
       <div id="NameRecordingWrapper">
         {state.userName ? (
           <NameBanner userName={state.userName} onClick={toggleModal} />
