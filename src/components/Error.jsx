@@ -1,7 +1,7 @@
 function Error() {
   return (
     <div id="errorMessage">
-      Uh-oh camper! Looks like something went wrong D:
+      Uh-oh camper! Your recording was too short. Please try again.
     </div>
   );
 }
