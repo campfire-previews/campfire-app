@@ -6,7 +6,7 @@
 
 Campfire is an open-source, self-hosted deploy preview solution that spins up dedicated environments for each feature branch when a pull request is opened. Much like how an actual campfire brings people together to trade stories, Campfire aims to be a central place for cross-functional teams to visually review and discuss proposed code changes or bug fixes early in the software development cycle.
 
-Campfire integrates a feedback interface directly into each deploy preview, allowing teams to collaborate efficiently on proposed code changes or bug fixes from the early stages of development. All user interactions are synced bidirectionally with the associated GitHub pull request. For more detailed insights, please refer to our [full case study](#).
+Campfire integrates a feedback interface directly into each deploy preview, allowing teams to collaborate efficiently on proposed code changes or bug fixes from the early stages of development. All user interactions are synced bidirectionally with the associated GitHub pull request. For more detailed insights, please refer to our [full case study](https://campfire-previews.github.io/).
 
 ## Features
 
